@@ -1,0 +1,390 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-10 col-md-offset-3">
+    <form class="msform" [formGroup]="onBoardingForm">
+      <ul class="d-flex progressbar p-0">
+        <li
+          *ngFor="let step of steps; let i = index"
+          [class.active]="i <= currentStep"
+          >
+          <!-- (click)="goToStep(i)" -->
+          <!-- {{ step }} -->
+        </li>
+      </ul>
+
+      <fieldset
+        *ngFor="let step of steps; let i = index"
+        [style.display]="i === currentStep ? 'block' : 'none'"
+      >
+      <img [src]="'/assets/images/on-boarding/header/' + getImageName(step)" class="h-40-px w-40-px mb-3">
+        <h2 class="fs-title">{{ step }}</h2>
+        <ng-container *ngIf="i === 0">
+          <h3 class="fs-subtitle">City or Zip Code</h3>
+          <div class="mb-3">
+            <label class="form-label"
+              >Country<span class="text-danger">*</span></label
+            >
+            <select
+              id="country"
+              required
+              name="country"
+              class="input-area w-100"
+              formControlName="country"
+            >
+              <option [value]="defaultCountry">United states</option>
+              <option
+                [value]="item.country_code"
+                *ngFor="let item of allCountryData"
+              >
+                {{ item.country }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"
+              >Zip Code<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="input-area"
+              required
+              placeholder="Enter your zip code"
+              formControlName="zip"
+              name="zip"
+              #zipCode
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                onBoardingForm.get('zip').hasError('required') &&
+                onBoardingForm.get('zip').touched
+              "
+            >
+              Zip code is required.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">City</label>
+            <input
+              type="text"
+              class="input-area"
+              required
+              name="city"
+              placeholder="Enter your city"
+              formControlName="city"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                onBoardingForm.get('city').hasError('required') &&
+                onBoardingForm.get('city').touched
+              "
+            >
+              City is required.
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 1">
+          <h3 class="fs-subtitle">
+            Make your profile stand out with a photo that captures your
+            uniqueness
+          </h3>
+          <div class="d-flex justify-content-around flex-wrap">
+            <div class="d-none d-sm-flex flex-column">
+              <img
+                src="/assets/images/on-boarding/select-your-simle.jpg"
+                class="w-120-px h-120-px rounded-4"
+                alt=""
+              />
+              <p class="font-12-px mt-2">Show us your simle!</p>
+            </div>
+            <div>
+              <img
+                src="/assets/images/on-boarding/angle.jpg"
+                class="w-120-px h-120-px rounded-4"
+                alt=""
+              />
+              <p class="font-12-px mt-2">Use a good angle</p>
+            </div>
+            <div>
+              <img
+                src="/assets/images/on-boarding/bright-light .jpg"
+                class="w-120-px h-120-px rounded-4"
+                alt=""
+              />
+              <p class="font-12-px mt-2">Use bright lighting</p>
+            </div>
+          </div>
+          <div class="img-selector d-center mt-5">
+            <div class="d-flex flex-column">
+              <h4>Select Photo</h4>
+              <app-img-picker (onFileChange)="selectFiles($event)" />
+            </div>
+          </div>
+          <p class="font-12-px mt-2">You can upload more photos later!</p>
+        </ng-container>
+        <ng-container *ngIf="i === 2">
+          <div class="gender d-flex flex-column mb-3">
+            <label class="form-label"
+              >Are you Covid-19 vaccinated?<span class="text-danger"
+                >*</span
+              ></label
+            >
+            <div class="d-flex justify-content-around">
+              <div class="chip-group flex-wrap d-center" tabindex="-1" role="radiogroup">
+                <div
+                  (click)="vaccineStatus('Y', 'covid')"
+                  class="chip chip-checkbox justify-content-center"
+                  tabindex="0"
+                  role="radio"
+                  [ngClass]="whatImCovid === 'Y' ? 'active' : ''"
+                  aria-checked="false"
+                >
+                  <input type="radio" name="radioEx" />
+                  <span id="radioOneLabel">Yes</span>
+                </div>
+                <div
+                  (click)="vaccineStatus('N', 'covid')"
+                  [ngClass]="whatImCovid === 'N' ? 'active' : ''"
+                  class="chip chip-checkbox justify-content-center"
+                  tabindex="0"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  <input type="radio" name="radioEx" />
+                  <span id="radioTwoLabel">No</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gender d-flex flex-column mb-3">
+            <label class="form-label"
+              >Have you had any flu shots since 2018?<span class="text-danger"
+                >*</span
+              ></label
+            >
+            <div class="d-flex justify-content-around">
+              <div class="chip-group flex-wrap d-center" tabindex="-1" role="radiogroup">
+                <div
+                  (click)="vaccineStatus('Y', 'flu')"
+                  class="chip chip-checkbox justify-content-center"
+                  tabindex="0"
+                  role="radio"
+                  [ngClass]="whatImFlu === 'Y' ? 'active' : ''"
+                  aria-checked="false"
+                >
+                  <input type="radio" name="radioEx" />
+                  <span id="radioOneLabel">Yes</span>
+                </div>
+                <div
+                  (click)="vaccineStatus('N', 'flu')"
+                  [ngClass]="whatImFlu === 'N' ? 'active' : ''"
+                  class="chip chip-checkbox justify-content-center"
+                  tabindex="0"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  <input type="radio" name="radioEx" />
+                  <span id="radioTwoLabel">No</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 3">
+          <div class="d-center">
+            <div
+              class="d-flex flex-column gap-3 chip-group"
+              tabindex="-1"
+              role="radiogroup"
+            >
+              <div
+                *ngFor="let option of childOptions"
+                (click)="childStatus(option)"
+                [ngClass]="statusofChild === option ? 'active' : ''"
+                class="chip chip-checkbox justify-content-center w-268-px"
+                tabindex="0"
+                role="radio"
+                aria-checked="false"
+                [attr.id]="generateId(option)"
+              >
+                <input type="radio" name="radioEx" />
+                <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+                  option
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 4">
+          <div class="d-center">
+            <div
+              class="d-flex flex-column gap-3 chip-group"
+              tabindex="-1"
+              role="radiogroup"
+            >
+              <div
+                *ngFor="let option of studyOptions"
+                (click)="studyStatus(option)"
+                [ngClass]="statusofStudy === option ? 'active' : ''"
+                class="chip chip-checkbox justify-content-center w-268-px"
+                tabindex="0"
+                role="radio"
+                aria-checked="false"
+                [attr.id]="generateId(option)"
+              >
+                <input type="radio" name="radioEx" />
+                <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+                  option
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 5">
+          <div class="d-center">
+            <div
+              class="d-flex flex-column gap-3 chip-group"
+              tabindex="-1"
+              role="radiogroup"
+            >
+              <div
+                *ngFor="let ethnicity of ethnicities"
+                (click)="ethnicityStatus(ethnicity)"
+                [ngClass]="statusofEthnicity === ethnicity ? 'active' : ''"
+                class="chip chip-checkbox justify-content-center w-268-px"
+                tabindex="0"
+                role="radio"
+                aria-checked="false"
+              >
+                <input type="radio" name="radioEx" />
+                <span id="radioTwoLabel">{{ ethnicity }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 6">
+          <div class="d-flex gap-3">
+            <select
+              id="heightFeet"
+              required
+              name="heightFeet"
+              class="input-area w-100"
+              (change)="calculateTotalHeight($event)"
+              >
+              <!-- formControlName="heightFeet" -->
+              <option *ngFor="let feet of [4, 5, 6, 7]" [value]="feet">
+                {{ feet }} feet
+              </option>
+            </select>
+            <select
+              id="heightInches"
+              required
+              name="heightInches"
+              class="input-area w-100"
+              (change)="calculateTotalHeight($event)"
+              >
+              <!-- formControlName="heightInches" -->
+              <option
+                *ngFor="let inch of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+                [value]="inch"
+              >
+                {{ inch }} inches
+              </option>
+            </select>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 7">
+          <div class="d-center">
+            <div
+              class="d-flex flex-column gap-3 chip-group"
+              tabindex="-1"
+              role="radiogroup"
+            >
+              <div
+                *ngFor="let religion of religions"
+                (click)="religionStatus(religion)"
+                [ngClass]="statusofReligion === religion ? 'active' : ''"
+                class="chip chip-checkbox justify-content-center w-268-px"
+                tabindex="0"
+                role="radio"
+                aria-checked="false"
+              >
+                <input type="radio" name="radioEx" />
+                <span id="radioOneLabel">{{ religion }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 8">
+            <div class="d-center">
+              <div
+                class="d-flex flex-column gap-3 chip-group"
+                tabindex="-1"
+                role="radiogroup"
+              >
+                <div
+                  *ngFor="let option of smokeOptions"
+                  (click)="smokeStatus(option)"
+                  [ngClass]="statusofSmoke === option ? 'active' : ''"
+                  class="chip chip-checkbox justify-content-center w-268-px"
+                  tabindex="0"
+                  role="radio"
+                  aria-checked="false"
+                  [attr.id]="generateId(option)"
+                >
+                  <input type="radio" name="radioEx" />
+                  <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+                    option
+                  }}</span>
+                </div>
+              </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="i === 9">
+            <div class="d-center flex-column">
+                <div class="align-items-center">
+                    <div class="d-flex form-check" *ngFor="let option of relationshipOptions">
+                      <input 
+                        class="form-check-input me-2" 
+                        type="checkbox" 
+                        [value]="option"
+                        id="checkbox{{option}}" 
+                        (change)="relationshipOption(option)" 
+                        [checked]="selectedRelationOptions.includes(option)"
+                      >
+                      <label class="form-check-label mb-2" for="checkbox{{option}}">{{ option }}</label>
+                    </div>
+                  </div>
+            </div>
+              
+        </ng-container>
+        <input
+          *ngIf="i !== 0"
+          type="button"
+          name="previous"
+          class="previous action-button-previous"
+          value="Previous"
+          (click)="previousStep()"
+        />
+        <input
+          *ngIf="i !== steps.length - 1"
+          type="button"
+          name="next"
+          class="next action-button"
+          value="Next"
+          (click)="validateAndNextStep()"
+          [disabled]="isNextButtonDisabled()"
+          />
+          <!-- (click)="nextStep()" -->
+        <input
+          *ngIf="i === steps.length - 1"
+          type="submit"
+          name="submit"
+          class="submit action-button"
+          value="Submit"
+          (click)="submitForm()"
+        />
+      </fieldset>
+    </form>
+  </div>
+</div>
