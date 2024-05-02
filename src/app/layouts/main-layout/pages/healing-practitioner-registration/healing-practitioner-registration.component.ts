@@ -121,7 +121,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
 
     this.profileId = Number(localStorage.getItem('profileId'));
     const data = {
-      title: 'Organic dating Registration',
+      title: 'Nude girls Registration',
       url: `${window.window.location.href}`,
       description: '',
     };

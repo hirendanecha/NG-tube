@@ -28,21 +28,21 @@ export class CarouselComponent implements OnInit {
       img: 'assets/images/banner/banner-1.png',
     },
     {
-      img: 'assets/images/landingpage/OD-default-profile.png',
+      img: 'assets/images/landingpage/profile.png',
     },
   ];
   rightImage: any = [
     {
-      img: 'assets/images/landingpage/OD-default-profile.png',
+      img: 'assets/images/landingpage/profile.png',
     },
     {
-      img: 'assets/images/landingpage/OD-default-profile.png',
+      img: 'assets/images/landingpage/profile.png',
     },
     {
-      img: 'assets/images/landingpage/OD-default-profile.png',
+      img: 'assets/images/landingpage/profile.png',
     },
     {
-      img: 'assets/images/landingpage/OD-default-profile.png',
+      img: 'assets/images/landingpage/profile.png',
     },
   ];
   dataList: any = [];
@@ -60,7 +60,7 @@ export class CarouselComponent implements OnInit {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Organic dating Carousel',
+      title: 'Nude girls Carousel',
       url: `${location.href}`,
       description: '',
     };

@@ -38,7 +38,7 @@ export class ResearchDetailsComponent {
         if (res?.ID) {
           this.groupDetails = res;
           const data = {
-            title: `Organic dating Research ${this.groupDetails?.PageTitle}`,
+            title: `Nude girls Research ${this.groupDetails?.PageTitle}`,
             url: `${window.location.href}`,
             description: this.groupDetails?.PageDescription,
             image: this.groupDetails?.CoverPicName || this.groupDetails?.ProfilePicName

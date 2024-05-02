@@ -29,7 +29,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'Organic dating Promote You!',
+      title: 'Nude girls Promote You!',
       url: `${location.href}`,
       description: '',
     };

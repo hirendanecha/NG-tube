@@ -110,7 +110,7 @@
       <img
         loading="lazy"
         data-src="{{ sharedService?.userData?.ProfilePicName }}"
-        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/profile.png';"
         class="w-56-px h-56-px rounded-4"
         alt="icon"
       />
@@ -303,7 +303,7 @@
                   class="w-32-px h-32-px rounded"
                   data-src="{{ user.ProfilePicName }}"
                   [alt]="user.Username"
-                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/profile.png';"
                 />
                 <span>{{ user.Username }}</span>
               </div>
@@ -321,9 +321,9 @@
           loading="lazy"
           data-src="{{
             member?.ProfilePicName ||
-              '/assets/images/avtar/placeholder-user.png'
+              '/assets/images/avtar/profile.png'
           }}"
-          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png'"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/profile.png'"
           alt="avatar"
         />
 

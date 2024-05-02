@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     config.keyboard = false;
     config.pauseOnHover = false;
     const data = {
-      title: 'Organic dating',
+      title: 'Nude girls',
       url: `${location.href}`,
       description: '',
     };
@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     //     this.isNavigationEnd = true;
     //   });
     //   const data = {
-    //     title: 'Organic dating',
+    //     title: 'Nude girls',
     //     url: `${location.href}`,
     //   };
     //   this.seoService.updateSeoMetaData(data);
@@ -645,7 +645,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   //   modalRef.componentInstance.title = `Warning message`;
   //   modalRef.componentInstance.confirmButtonLabel = 'Ok';
   //   modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-  //   modalRef.componentInstance.message = `Videos on Organic dating home are limited to 2 Minutes!
+  //   modalRef.componentInstance.message = `Videos on Nude girls home are limited to 2 Minutes!
   //   Videos must be a mp4 format`;
   //   modalRef.result.then((res) => {
   //     if (res === 'success') {
@@ -713,7 +713,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!profile.profilePictures || profile.profilePictures.length === 0) {
       profile.profilePictures = [
         {
-          imageUrl: '/assets/images/landingpage/OD-default-profile.png',
+          imageUrl: '/assets/images/landingpage/profile.png',
         },
       ];
     }

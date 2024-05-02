@@ -23,7 +23,7 @@ export class NotificationsComponent {
     private socketService: SocketService
   ) { 
     const data = {
-      title: 'Organic dating Notification',
+      title: 'Nude girls Notification',
       url: `${window.location.href}`,
       description: '',
     };
