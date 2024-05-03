@@ -19,7 +19,7 @@ export class UnsubscribedUsersComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) { 
     const data = {
-      title: 'Nude girls Unsubscribed User',
+      title: 'Nude Girls Unsubscribed User',
       url: `${window.location.href}`,
       description: '',
     };

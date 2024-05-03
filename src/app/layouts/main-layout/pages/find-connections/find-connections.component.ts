@@ -12,7 +12,7 @@ export class ConnectionsComponent implements OnInit {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Nude girls Connections',
+      title: 'Nude Girls',
       url: `${location.href}`,
       description: '',
     };

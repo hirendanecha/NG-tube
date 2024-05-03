@@ -28,7 +28,7 @@ const routes: Routes = [
         // canActivate: mapToCanActivate([AuthenticationGuard]),
       },
       {
-        path: 'connection',
+        path: 'nude-girls',
         loadChildren: () =>
           import('./pages/find-connections/find-connections.module').then(
             (m) => m.ConnectionsModule
@@ -61,7 +61,7 @@ const routes: Routes = [
         canActivate: mapToCanActivate([AuthenticationGuard]),
       },
       {
-        path: 'promote-you',
+        path: 'girl-pr',
         loadChildren: () =>
           import('./pages/freedom-page/freedom-page.module').then(
             (m) => m.FreedomPageModule

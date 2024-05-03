@@ -29,7 +29,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'Nude girls Promote You!',
+      title: 'Nude Girls',
       url: `${location.href}`,
       description: '',
     };

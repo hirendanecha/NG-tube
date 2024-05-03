@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     config.keyboard = false;
     config.pauseOnHover = false;
     const data = {
-      title: 'Nude girls',
+      title: 'Nude Girls',
       url: `${location.href}`,
       description: '',
     };

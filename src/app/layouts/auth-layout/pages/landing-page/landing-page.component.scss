@@ -4,8 +4,8 @@
   // background: #11134d;
 
   .text-s {
-    // font-size: min(max(16px, 1vw), 22px);
-    font-size: 42px;
+    font-size: min(max(32px, 2vw), 42px);
+    // font-size: 42px;
     font-weight: 600;
   }
   .c-fonts {
@@ -15,6 +15,10 @@
     // @media (max-width: 999px) {
     //   font-size: 16px;
     // }
+  }
+  .main-banner{
+    width: 100%;
+    border: var(--primary-color) solid 2px;
   }
 
   .custom-height {

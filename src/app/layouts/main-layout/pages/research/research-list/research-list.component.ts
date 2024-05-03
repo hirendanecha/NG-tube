@@ -65,7 +65,7 @@ export class ResearchListComponent {
     private socketService: SocketService
   ) {
     const data = {
-      title: 'Nude girls Research',
+      title: 'Nude Girls Research',
       url: `${window.location.href}`,
       description: '',
     };

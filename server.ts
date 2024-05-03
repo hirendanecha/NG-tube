@@ -84,18 +84,18 @@ export function app(): express.Express {
         }
         const params = req.params[0];
         var seo: any = {
-          title: 'Nude girls',
+          title: 'Nude Girls',
           description:
             'Find like minded male or female unvaccinated organic humans!',
           image:
             'https://www.organic.dating/assets/images/landingpage/profile.png',
           site: 'https://www.organic.dating/',
           url: 'https://www.organic.dating' + params,
-          keywords: 'Nude girls',
+          keywords: 'Nude Girls',
         };
         if (
-          params.indexOf('connection/') > -1 ||
-          params.indexOf('promote-you/') > -1
+          params.indexOf('nude-girls/') > -1 ||
+          params.indexOf('girl-pr/') > -1
         ) {
           let id = params.split('/');
           id = id[id.length - 1];
