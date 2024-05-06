@@ -88,7 +88,7 @@ export function app(): express.Express {
           description:
             'Find like minded male or female unvaccinated organic humans!',
           image:
-            'https://www.nude.girls/assets/images/landingpage/profile.png',
+            'https://www.nude.girls/assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
           site: 'https://www.nude.girls/',
           url: 'https://www.nude.girls' + params,
           keywords: 'Nude Girls',
@@ -160,7 +160,7 @@ export function app(): express.Express {
               post?.thumbfilename ||
               post?.metaimage ||
               post?.imageUrl ||
-              'https://www.nude.girls/assets/images/landingpage/profile.png',
+              'https://www.nude.girls/assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
           };
           seo.title = talent.name;
           seo.description = strip_html_tags(talent.description);

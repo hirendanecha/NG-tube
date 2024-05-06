@@ -94,7 +94,7 @@ export class LeftSidebarComponent implements OnInit {
 
   notificationNavigation() {
     this.closeSidebar();
-    this.originalFavicon.href = '/assets/images/landingpage/profile.png';
+    this.originalFavicon.href = '/assets/images/landingpage/NudeGirls-Tube-Square-Logo.png';
     if (this.isRead === 'N') {
       localStorage.setItem('isRead', 'Y');
       this.sharedService.isNotify = false;

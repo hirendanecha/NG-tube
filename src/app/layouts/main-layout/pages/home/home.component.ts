@@ -713,7 +713,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!profile.profilePictures || profile.profilePictures.length === 0) {
       profile.profilePictures = [
         {
-          imageUrl: '/assets/images/landingpage/profile.png',
+          imageUrl: '/assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
         },
       ];
     }
