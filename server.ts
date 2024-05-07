@@ -86,7 +86,7 @@ export function app(): express.Express {
         var seo: any = {
           title: 'Nude Girls',
           description:
-            'Find like minded male or female unvaccinated organic humans!',
+            'Talk Face-to-Face One-on-One with hot nude girls',
           image:
             'https://www.nudegirls.tube/assets/images/landingpage/Healing-Tube-Logo.png',
           site: 'https://www.nudegirls.tube/',
