@@ -38,7 +38,7 @@ export class ResearchDetailsComponent {
         if (res?.ID) {
           this.groupDetails = res;
           const data = {
-            title: `Nude Girls Research ${this.groupDetails?.PageTitle}`,
+            title: `NudeGirls.tube Research ${this.groupDetails?.PageTitle}`,
             url: `${window.location.href}`,
             description: this.groupDetails?.PageDescription,
             image: this.groupDetails?.CoverPicName || this.groupDetails?.ProfilePicName

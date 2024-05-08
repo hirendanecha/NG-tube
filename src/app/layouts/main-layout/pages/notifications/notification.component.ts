@@ -23,7 +23,7 @@ export class NotificationsComponent {
     private socketService: SocketService
   ) { 
     const data = {
-      title: 'Nude Girls Notification',
+      title: 'NudeGirls.tube Notification',
       url: `${window.location.href}`,
       description: '',
     };

@@ -24,7 +24,7 @@ export class SettingsComponent {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Nude Girls Settings',
+      title: 'NudeGirls.tube Settings',
       url: `${location.href}`,
       description: '',
     };

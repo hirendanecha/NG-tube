@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class SubscribeModalComponent implements OnInit{
   @Input() cancelButtonLabel: string | undefined = 'Cancel';
   @Input() confirmButtonLabel: string | undefined = 'Confirm';
-  @Input() title: string | undefined = 'Nude Girls';
+  @Input() title: string | undefined = 'NudeGirls.tube';
   @Input() dataList: any = [];
   @Input() message: string | undefined ='Subscribe to send ashley your message now';
 

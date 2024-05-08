@@ -37,7 +37,7 @@ export class CommunitiesComponent {
     }
     // this.getCommunities();
     const data = {
-      title: 'Nude Girls Connection',
+      title: 'NudeGirls.tube Connection',
       url: `${window.location.href}`,
       description: '',
     };

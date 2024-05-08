@@ -84,14 +84,14 @@ export function app(): express.Express {
         }
         const params = req.params[0];
         var seo: any = {
-          title: 'Nude Girls',
+          title: 'NudeGirls.tube',
           description:
             'Talk Face-to-Face One-on-One with hot nude girls',
           image:
             'https://www.nudegirls.tube/assets/images/landingpage/Healing-Tube-Logo.png',
           site: 'https://www.nudegirls.tube/',
           url: 'https://www.nudegirls.tube' + params,
-          keywords: 'Nude Girls',
+          keywords: 'NudeGirls.tube',
         };
         if (
           params.indexOf('nude-girls/') > -1 ||
@@ -132,7 +132,7 @@ export function app(): express.Express {
           console.log({ params }, { id }, { profile: JSON.stringify(profile) });
           const talent = {
             name: profile[0]?.userName,
-            description: 'Nude girls',
+            description: 'NudeGirls.tube',
             image: profile?.[0]?.profilePictures?.[0]?.imageUrl,
           };
           // description: profile[0]?.FirstName + ' ' + profile[0]?.LastName,
@@ -175,7 +175,7 @@ export function app(): express.Express {
 
           console.log('group===>', group);
           const talent = {
-            name: `Nude girls Research ${group?.PageTitle}`,
+            name: `NudeGirls.tube Research ${group?.PageTitle}`,
             description: group?.PageDescription,
             image: group?.CoverPicName || group?.ProfilePicName,
           };

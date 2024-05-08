@@ -29,7 +29,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'Nude Girls',
+      title: 'NudeGirls.tube',
       url: `${location.href}`,
       description: '',
     };
