@@ -350,14 +350,14 @@
       >
         Basic Info
       </button>
-      <button
+      <!-- <button
         class="about-me"
         type="button"
         (click)="activeTab = 1"
         [ngClass]="activeTab === 1 ? 'active' : ''"
       >
         About me
-      </button>
+      </button> -->
     </div>
   </div>
   <ng-container *ngIf="activeTab === 0">
@@ -482,7 +482,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="activeTab === 1">
+  <!-- <ng-container *ngIf="activeTab === 1">
     <div class="intrests-box single-box mt-8 p-8">
       <div class="d-flex justify-content-between">
         <h5 class="text-start">Interests</h5>
@@ -509,7 +509,7 @@
       >{{customer.idealDate}}</span>
       </div>
     </ng-container>
-  </ng-container>
+  </ng-container> -->
 </div>
 
 <div class="mt-8" *ngIf="profilePreview">

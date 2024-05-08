@@ -16,7 +16,7 @@ export class CompleteProfileComponent implements OnInit, AfterViewInit {
     'Relationship History',
     'Ideal date',
     'Body Type',
-    'Interests',
+    // 'Interests',
   ];
   existingUserData: any = {};
   // 'Industry',
