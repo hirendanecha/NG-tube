@@ -88,7 +88,7 @@ export function app(): express.Express {
           description:
             'Talk Face-to-Face One-on-One with hot nude girls',
           image:
-            'https://www.nudegirls.tube/assets/images/landingpage/Healing-Tube-Logo.png',
+            'https://www.nudegirls.tube/assets/images/landingpage/profile.png',
           site: 'https://www.nudegirls.tube/',
           url: 'https://www.nudegirls.tube' + params,
           keywords: 'NudeGirls.tube',
