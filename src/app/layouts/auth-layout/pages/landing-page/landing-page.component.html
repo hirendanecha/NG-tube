@@ -1,6 +1,6 @@
 <div class="main-container">
   <nav class="navbar navbar-light px-6 px-sm-10 auth-btns">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column cursor" routerLink="/">
       <img
         src="/assets/images/landingpage/NudeGirls-Tube-Logo.png"
         class="h-60-px pt-2"
@@ -28,8 +28,9 @@
     </div>
   </nav>
 
+  <div class="custom-mobile-height" *ngIf="isInnerWidthSmall && (isLogin || isRegister)" (click)="closeMenu()"></div>
   <div (click)="closeMenu()">
-    <div class="d-flex flex-column py-10 custom-height">
+    <div class="d-flex flex-column py-sm-10" [ngClass]="!isInnerWidthSmall || (!isLogin && !isRegister) ? 'custom-height' : ''">
       <div class="container">
         <div class="main-banner p-2 p-sm-4" *ngIf="!isLogin && !isRegister">
           <span class="d-flex flex-column align-items-center">
@@ -49,6 +50,7 @@
     </div>
     <div class="h-200-px"></div>
   </div>
+  <div class="h-200-px"  *ngIf="!isInnerWidthSmall"></div>
 </div>
 <ng-container *ngIf="mobileMenuToggle">
   <div class="main-area p-5 profile-content">

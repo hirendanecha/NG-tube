@@ -20,6 +20,16 @@
     width: 100%;
     border: var(--primary-color) solid 2px;
   }
+  .custom-mobile-height {
+    background-image: url(../../../../../assets/images/landingpage/adult.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    height: calc(40vh - 48px);
+    // background-position: center;
+    // min-height: 400px;
+  }
 
   .custom-height {
     background-image: url(../../../../../assets/images/landingpage/adult.jpg);
