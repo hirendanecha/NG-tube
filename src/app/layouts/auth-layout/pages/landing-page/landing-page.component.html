@@ -32,7 +32,7 @@
   <div (click)="closeMenu()">
     <div class="d-flex flex-column py-sm-10" [ngClass]="!isInnerWidthSmall || (!isLogin && !isRegister) ? 'custom-height' : ''">
       <div class="container">
-        <div class="main-banner p-2 p-sm-4" *ngIf="!isLogin && !isRegister">
+        <div class="main-banner p-2 p-sm-4 position-relative" *ngIf="!isLogin && !isRegister">
           <span class="d-flex flex-column align-items-center">
             <h1 class="text-black my-2 text-s">NudeGirls.tube</h1>
             <p class="text-black c-fonts my-3 mb-0">Live Girls!</p>
