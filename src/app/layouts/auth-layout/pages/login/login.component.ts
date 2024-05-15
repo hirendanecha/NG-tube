@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       image: `${environment.webUrl}assets/images/landingpage/Healing-Tube-Logo.png`,
     };
     this.theme = localStorage.getItem('theme');
-    // this.seoService.updateSeoMetaData(data);
+    this.seoService.updateSeoMetaData(data);
   }
 
   ngOnInit(): void {
@@ -137,6 +137,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.socketService.connect();
+          this.socketService.socket?.emit('online-users');
+          this.socketService?.socket?.on('get-users', (data) => {
+            data.map((ele) => {
+              if (!this.sharedService.onlineUserList.includes(ele.userId)) {
+                this.sharedService.onlineUserList.push(ele.userId);
+              }
+            });
+            // this.onlineUserList = data;
+          });
           this.toastService.success('Logged in successfully');
           this.router.navigate([`/home`]);
         } else {
@@ -161,7 +170,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   resend() {
     this.authService
-      .userVerificationResend({ username: this.loginForm.value.login_email })
+      .userVerificationResend({ userName: this.loginForm.value.login_email })
       .subscribe({
         next: (result: any) => {
           this.msg = result.message;

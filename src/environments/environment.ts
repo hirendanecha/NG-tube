@@ -15,4 +15,7 @@ export const environment = {
   domain: '.nudegirls.tube',
   siteKey: '0x4AAAAAAAZb1zgTseHpmQO_',
   secretKey: '0x4AAAAAAAZb188lE5SYUvop6nUADe5pGVU',
+  qrLink: `${webUrl}settings/edit-profile/`,
+  EncryptIV: 8625401029409790,
+  EncryptKey: 8625401029409790,
 };

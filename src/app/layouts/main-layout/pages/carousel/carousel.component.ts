@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubscribeModalComponent } from 'src/app/@shared/modals/subscribe-model/subscribe-modal.component';
 import { CustomerService } from 'src/app/@shared/services/customer.service';
 import { SeoService } from 'src/app/@shared/services/seo.service';
+import { TokenStorageService } from 'src/app/@shared/services/token-storage.service';
 
 @Component({
   selector: 'app-carousel',
@@ -53,12 +54,15 @@ export class CarouselComponent implements OnInit {
 
   currentSlideIndex = 0;
   currentImageIndex: number = this.dataList.length - 1;
+  profileId: number;
 
   constructor(
     private customerService: CustomerService,
     private modelService: NgbModal,
-    private seoService:SeoService
+    private seoService: SeoService,
+    private tokenStorageService: TokenStorageService
   ) {
+    this.profileId = +localStorage.getItem('profileId');
     const data = {
       title: 'NudeGirls.tube Carousel',
       url: `${location.href}`,
@@ -91,9 +95,11 @@ export class CarouselComponent implements OnInit {
     this.currentImageIndex = 0;
   }
 
-  getPictures(paggination) {
-    return this.customerService
-      .getPictures(paggination.page, paggination.limit)
+  getPictures(paggination): void {
+    const gender = this.tokenStorageService.getUser()?.gender;
+
+    this.customerService
+      .getPictures(paggination.page, paggination.limit, this.profileId, gender)
       .subscribe({
         next: (res: any) => {
           this.dataList = res.data;

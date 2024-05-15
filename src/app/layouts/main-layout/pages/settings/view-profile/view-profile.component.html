@@ -21,15 +21,15 @@
             class="preview-image w-120-px h-120-px"
             loading="eager"
             data-src="{{
-              customer?.ProfilePicName ||
-                '/assets/images/avtar/NudeGirls-Tube-Square-Logo.png'
+              customer?.profilePicName ||
+                '/assets/images/avtar/placeholder-user.png'
             }}"
-            onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+            onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
             alt="Preview Image"
           />
           <div class="user-details ms-3">
             <h3 class="d-flex">
-              {{ customer?.Username }}
+              {{ customer?.userName }}
             </h3>
             <div class="col-md" *ngIf="+profileId === customer.Id">
               <button
@@ -183,17 +183,17 @@
                     class="avatar-img w-48-px h-48-px rounded-3"
                     loading="lazy"
                     data-src="{{
-                      item?.ProfilePicName ||
-                        '/assets/images/avtar/NudeGirls-Tube-Square-Logo.png'
+                      item?.profilePicName ||
+                        '/assets/images/avtar/placeholder-user.png'
                     }}"
-                    onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                     alt="avatar"
                   />
                 </div>
                 <div class="single-item notification-area text-area text-start">
                   <h6 class="m-0 mb-1 d-flex align-items-center">
                     <a class="cursor" (click)="viewUserPost(item.id)">{{
-                      item?.Username
+                      item?.userName
                     }}</a>
                     <span class="smtxt time-schedule ms-1">
                       <fa-icon class="ms-2" [icon]="['fas', 'clock']" />
@@ -257,7 +257,7 @@
 
 <!-- New view profile -->
 
-<div class="mt-8" *ngIf="!profilePreview">
+<div class="my-8" *ngIf="!profilePreview">
   <div class="d-flex justify-content-between">
     <h5>My Profile</h5>
     <button class="btn btn-sm cmn-btn" (click)="profilePre()">
@@ -271,7 +271,7 @@
       <div class="d-flex flex-column justify-content-center gap-4 col-12 col-md-3 col-xl-3 col-lg-auto">
         <div class="d-flex justify-content-between view-border-bottom">
           <label>Name</label>
-          <h6>{{ customer?.userName || 'Organic user' }}</h6>
+          <h6>{{ customer?.userName || 'Nude.girls user' }}</h6>
         </div>
         <div class="d-flex justify-content-between view-border-bottom">
           <label>Location</label>
@@ -350,14 +350,14 @@
       >
         Basic Info
       </button>
-      <!-- <button
+      <button
         class="about-me"
         type="button"
         (click)="activeTab = 1"
         [ngClass]="activeTab === 1 ? 'active' : ''"
       >
         About me
-      </button> -->
+      </button>
     </div>
   </div>
   <ng-container *ngIf="activeTab === 0">
@@ -482,7 +482,7 @@
       </div>
     </div>
   </ng-container>
-  <!-- <ng-container *ngIf="activeTab === 1">
+  <ng-container *ngIf="activeTab === 1">
     <div class="intrests-box single-box mt-8 p-8">
       <div class="d-flex justify-content-between">
         <h5 class="text-start">Interests</h5>
@@ -499,17 +499,23 @@
         <h6 class="mt-2">Please finish this step for better match!</h6>
       </ng-template>
     </div>
-    <ng-container *ngIf="customer?.idealDate">
+    <ng-container>
       <div class="intrests-box single-box mt-8 py-5 px-8">
         <div class="d-flex justify-content-between">
-          <h5 class="text-start">Ideal Date</h5>
-          <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Ideal date')"></fa-icon>
+          <h5 class="text-start">My Story</h5>
+          <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('My Story')"></fa-icon>
         </div>
-        <span
+        <span class="story-area" *ngIf="customer?.idealDate; else noStory"
       >{{customer.idealDate}}</span>
+      <ng-template #noStory>
+        <div class="story-area">
+          <h5>Please tell your match your story!</h5>
+          <small class="text-danger">Minimum of 20 characters and maximum of 500 characters for better reach</small>
+        </div>
+      </ng-template>
       </div>
     </ng-container>
-  </ng-container> -->
+  </ng-container>
 </div>
 
 <div class="mt-8" *ngIf="profilePreview">

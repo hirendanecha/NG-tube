@@ -29,7 +29,7 @@ export class ProfileMenusModalComponent {
     private cookieService: CookieService,
   ) {
     this.userId = +(this.tokenStorageService.getUser().Id) as any;
-    this.profileId = +localStorage.getItem('profileId');
+    this.profileId = +(this.tokenStorageService.getUser().profileId) as any;
   }
 
   closeMenu(e: MouseEvent, type: string) {

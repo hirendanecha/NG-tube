@@ -9,9 +9,7 @@ import { environment } from 'src/environments/environment';
 export class SocketService {
   public socket: any;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('auth-token');
       if (token) {
@@ -70,7 +68,6 @@ export class SocketService {
       this.socket?.connect();
       this.socket?.emit('create-new-post', params);
     }
-
   }
 
   editPost(params, callback: (post: any) => void) {
@@ -109,8 +106,86 @@ export class SocketService {
   commentOnPost(params, callback: (data: any) => void) {
     this.socket?.emit('comments-on-post', params, callback);
   }
-  
+
   readNotification(params, callback: (data: any) => void) {
     this.socket?.emit('isReadNotification', params, callback);
+  }
+
+  // socket for chat
+
+  getChatList(params, callback: (data: any) => void) {
+    this.socket?.emit('get-chat-list', params, callback);
+  }
+
+  createChatRoom(params, callback: (data: any) => void) {
+    this.socket.emit('create-room', params, callback);
+  }
+
+  acceptRoom(params, callback: (data: any) => void) {
+    this.socket.emit('accept-room', params, callback);
+  }
+
+  sendMessage(params, callback: (data: any) => void) {
+    this.socket.emit('send-message', params, callback);
+  }
+
+  readMessage(params, callback: (data: any) => void) {
+    this.socket.emit('read-message', params, callback);
+  }
+
+  readGroupMessage(params, callback: (data: any) => void) {
+    this.socket.emit('read-group-message', params, callback);
+  }
+
+  editMessage(params, callback: (data: any) => void) {
+    this.socket.emit('edit-message', params, callback);
+  }
+
+  deleteMessage(params, callback: (data: any) => void) {
+    this.socket.emit('delete-message', params, callback);
+  }
+
+  startCall(params, callback: (data: any) => void) {
+    this.socket.emit('start-call', params, callback);
+  }
+
+  hangUpCall(params, callback: (data: any) => void) {
+    this.socket.emit('decline-call', params, callback);
+  }
+
+  pickUpCall(params, callback: (data: any) => void) {
+    this.socket.emit('pick-up-call', params, callback);
+  }
+
+  createGroup(params, callback: (data: any) => void) {
+    this.socket.emit('create-group', params, callback);
+  }
+
+  getGroup(params, callback: (data: any) => void) {
+    this.socket.emit('get-group-list', params, callback);
+  }
+
+  getGroupData(params, callback: (data: any) => void) {
+    this.socket.emit('get-group', params, callback);
+  }
+
+  removeGroupMember(params, callback: (data: any) => void) {
+    this.socket.emit('remove-member', params, callback);
+  }
+
+  startTyping(params, callback: (data: any) => any) {
+    this.socket.emit('start-typing', params, callback);
+  }
+
+  deleteRoom(params, callback: (data: any) => void) {
+    this.socket.emit('delete-room', params, callback);
+  }
+
+  resendChatInvite(params, callback: (data: any) => void) {
+    this.socket.emit('resend-chat-invite', params, callback);
+  }
+
+  switchChat(params, callback: (data: any) => void) {
+    this.socket.emit('switch-group', params, callback);
   }
 }

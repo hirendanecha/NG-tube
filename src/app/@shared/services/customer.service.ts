@@ -16,13 +16,16 @@ export class CustomerService {
 
   customerObs: Subject<any> = new Subject<any>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCustomer(id: number): Observable<any> {
-    this.http.get<any>(`${this.baseUrl}/${id}`).pipe(take(1)).subscribe((customers) => {
-      const cust = customers?.[0];
-      this.customerObs.next(cust);
-    });
+    this.http
+      .get<any>(`${this.baseUrl}/${id}`)
+      .pipe(take(1))
+      .subscribe((customers) => {
+        const cust = customers?.[0];
+        this.customerObs.next(cust);
+      });
 
     return this.customerObs;
   }
@@ -36,7 +39,9 @@ export class CustomerService {
   }
 
   deleteCustomer(id: number, profileId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}?profileId=${profileId}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/${id}?profileId=${profileId}`, {
+      responseType: 'text',
+    });
   }
 
   getCustomersList(): Observable<any> {
@@ -66,7 +71,7 @@ export class CustomerService {
   }
 
   getProfile(id): Observable<Object> {
-    return this.http.get<Object>(`${this.baseUrl}/profile/${id}`);
+    return this.http.get<Object>(`${this.baseUrl}/profile/${id}?q=${Date.now()}`);
   }
 
   updateProfile(id, customer: any): Observable<Object> {
@@ -78,20 +83,23 @@ export class CustomerService {
       `${this.baseUrl}/search-user?searchText=${searchText}`
     );
   }
-  getProfiles(pages, limit): Observable<object> {
+  getProfiles(pages, limit, profileId, gender): Observable<object> {
     return this.http.get(
-      `${this.baseUrl}/get-profiles?page=${pages}&limit=${limit}`
+      `${this.baseUrl}/get-profiles/${profileId}?page=${pages}&limit=${limit}&gender=${gender}&?q=${Date.now()}`
     );
   }
 
-  getPictures(pages, limit): Observable<object> {
+  getPictures(pages, limit, profileId, gender): Observable<object> {
     return this.http.get(
-      `${this.baseUrl}/get-profile-pictures?page=${pages}&limit=${limit}`
+      `${this.baseUrl}/get-profile-pictures/${profileId}?page=${pages}&limit=${limit}&gender=${gender}`
     );
   }
 
-  getNotificationList(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/get-notification/${id}?q=${Date.now()}`);
+  getNotificationList(id: number, data = {}): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/get-notification/${id}?q=${Date.now()}`,
+      data
+    );
   }
 
   deleteNotification(id: number): Observable<any> {
@@ -107,16 +115,11 @@ export class CustomerService {
   }
 
   logout(): Observable<any> {
-    return this.http.get(
-      `${this.baseUrl}/logout`,
-      httpOptions
-    );
+    return this.http.get(`${this.baseUrl}/logout`, httpOptions);
   }
 
   getNotification(id): Observable<any> {
-    return this.http.get(
-      `${this.baseUrl}/notification/${id}&q=${Date.now()}`,
-    );
+    return this.http.get(`${this.baseUrl}/notification/${id}&q=${Date.now()}`);
   }
 
   verifyToken(token): Observable<any> {
@@ -137,5 +140,13 @@ export class CustomerService {
 
   updateProfileImages(id, image: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/update-picture/${id}`, image);
+  }
+
+  getApprovedUserList(data): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, data);
+  }
+
+  getMetaData(url) {
+    return this.http.post(`${this.baseUrl}/get-meta`, url);
   }
 }

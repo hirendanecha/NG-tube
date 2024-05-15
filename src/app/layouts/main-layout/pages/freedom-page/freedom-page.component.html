@@ -1,6 +1,6 @@
 <div class="mb-5 d-flex gap-3 justify-content-between">
   <div class="d-flex flex-column pt-3">
-    <h6 class="d-block d-xl-none text-start">Health Topics</h6>
+    <h6 class="d-block d-xl-none text-start">Promote You!</h6>
 
     <ul
       ngbNav
@@ -12,21 +12,21 @@
       <li ngbNavItem="my">
         <button ngbNavLink class="d-flex gap-1">
           My
-          <div class="d-none d-xl-block">Topics</div>
+          <div class="d-none d-xl-block">Promotes</div>
         </button>
       </li>
 
       <li ngbNavItem="joined">
         <button ngbNavLink class="d-flex gap-1">
           Joined
-          <div class="d-none d-xl-block">Topics</div>
+          <div class="d-none d-xl-block">Promoters</div>
         </button>
       </li>
 
       <li ngbNavItem="local">
         <button ngbNavLink class="d-flex gap-1">
           All
-          <div class="d-none d-xl-block">Topics</div>
+          <div class="d-none d-xl-block">Promoters</div>
         </button>
       </li>
     </ul>
@@ -38,7 +38,8 @@
       (click)="createCommunity()"
     >
     <fa-icon class="c-icon-color" [icon]="['fas', 'plus']" />
-      Create <div class="d-none d-sm-block">Health</div><div class="d-none d-xl-block">Topics</div>
+      <!-- Create <div class="d-none d-sm-block">Promote</div><div class="d-none d-xl-block">Topics</div> -->
+      Promote You!
     </button>
   </div>
 </div>
@@ -58,7 +59,7 @@
     <app-inline-loader *ngIf="isPageLoader" />
 
     <ng-container *ngIf="!isPageLoader">
-      <span>No Page found</span>
+      <span>No promoters found</span>
     </ng-container>
   </ng-container>
 </div>

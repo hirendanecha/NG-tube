@@ -189,8 +189,9 @@ export class ViewProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     modalRef.componentInstance.title = field;
     modalRef.result.then((res) => {
       if (res === 'success') {
-        this.customer = {};
-        this.getProfile(+this.profileId);
+        // this.customer = {};
+        // this.getProfile(+this.profileId);
+        setTimeout(() => this.getProfile(+this.profileId), 100);
       }
     })
   }

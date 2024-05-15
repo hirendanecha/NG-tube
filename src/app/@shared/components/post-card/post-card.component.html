@@ -13,8 +13,8 @@
   <img
     class="w-48-px h-48-px rounded-4 d-none d-lg-block"
     loading="lazy"
-    data-src="{{ post.ProfilePicName }}"
-    onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+    data-src="{{ post.profilePicName }}"
+    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
     alt="avatar"
   />
 
@@ -24,8 +24,8 @@
         <img
           class="w-48-px h-48-px rounded-4"
           loading="lazy"
-          data-src="{{ post.ProfilePicName }}"
-          onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+          data-src="{{ post.profilePicName }}"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
           alt="avatar"
         />
       </div>
@@ -35,10 +35,7 @@
         <div
           class="info-area d-flex justify-content-start align-items-center position-relative"
         >
-          <div
-            class="d-flex flex-column h6 m-0"
-            *ngIf="post?.Username || post?.FirstName"
-          >
+          <div class="d-flex flex-column h6 m-0" *ngIf="post?.userName">
             <div
               class="d-flex align-items-center cursor c-padding posted-wrap-text"
             >
@@ -46,7 +43,7 @@
                 class="d-flex align-items-center"
                 (mouseover)="showHoverBox = true"
               >
-                {{ (post?.Username || post?.FirstName)?.split(" ")?.join("") }}
+                {{ post?.userName?.split(" ")?.join("") }}
                 <!-- [ngbTooltip]="post.postcreationdate | date : ' h:mm a MMM d, y'" -->
                 <div>
                   <fa-icon
@@ -87,18 +84,16 @@
               <img
                 class="w-48-px h-48-px rounded-4"
                 loading="lazy"
-                data-src="{{ post?.ProfilePicName }}"
-                onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                data-src="{{ post?.profilePicName }}"
+                onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                 alt="avatar"
               />
               <p class="cursor mt-2">
-                {{ (post?.Username || post?.FirstName)?.split(" ")?.join("") }}
+                {{ post?.userName?.split(" ")?.join("") }}
               </p>
               <div
                 class="d-flex"
-                *ngIf="
-                  profileId != post.profileid && tokenService.getToken()
-                "
+                *ngIf="profileId != post.profileid && tokenService.getToken()"
               >
                 <button>
                   <a
@@ -469,7 +464,7 @@
                 loading="lazy"
                 data-src="{{ commentData?.imageUrl }}"
                 class="w-56-px h-56-px rounded-4"
-                onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                 alt="icon"
               />
               <fa-icon
@@ -498,8 +493,8 @@
                 <img
                   loading="lazy"
                   class="w-40-px h-40-px rounded-3"
-                  data-src="{{ comment?.ProfilePicName }}"
-                  onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                  data-src="{{ comment?.profilePicName }}"
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                   alt="avatar"
                 />
               </div>
@@ -511,11 +506,7 @@
                     class="d-flex justify-content-between align-items-center w-100"
                   >
                     <h6 class="m-0">
-                      {{
-                        (comment.Username || comment.FirstName)
-                          ?.split(" ")
-                          ?.join("")
-                      }}
+                      {{ comment.userN?.split(" ")?.join("") }}
                       <span class="font-12-px text-lowercase">
                         <fa-icon class="ms-2" [icon]="['fas', 'clock']" />
                         {{ comment.createdDate | dateDay }}</span
@@ -637,9 +628,7 @@
                       [isShowEmojis]="true"
                       (onDataChange)="onTagUserReplayInputChangeEvent($event)"
                     />
-                    <div
-                      class="file-input d-flex gap-2 align-items-center"
-                    >
+                    <div class="file-input d-flex gap-2 align-items-center">
                       <div class="file-upload d-flex">
                         <label class="file">
                           <input
@@ -673,7 +662,7 @@
                         loading="lazy"
                         data-src="{{ commentData?.imageUrl }}"
                         class="w-100 h-100 rounded-4"
-                        onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                         alt="icon"
                       />
                       <fa-icon
@@ -699,10 +688,10 @@
                     >
                       <img
                         loading="lazy"
-                        data-src="{{ reply.ProfilePicName }}"
+                        data-src="{{ reply.profilePicName }}"
                         class="w-40-px h-40-px rounded-3"
                         alt="icon"
-                        onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                       />
 
                       <div class="info-item w-100">
@@ -713,11 +702,7 @@
                             class="d-flex justify-content-between align-items-center w-100"
                           >
                             <h6 class="m-0 align-items-center">
-                              {{
-                                (reply.Username || reply.FirstName)
-                                  ?.split(" ")
-                                  ?.join("")
-                              }}
+                              {{ reply.userN?.split(" ")?.join("") }}
                               <span class="font-12-px text-lowercase">
                                 <fa-icon
                                   class="ms-2"

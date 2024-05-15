@@ -5,7 +5,7 @@
       <a
         class="d-flex justify-content-between align-items-center"
         (click)="readUnreadNotification(notification.postId, notification.id)"
-        [routerLink]="'post/' + notification.postId"
+        [routerLink]="notification?.postId === null ? '/chats' : '/post/' + notification?.postId"
       >
         <div class="left-item position-relative d-inline-flex gap-3">
           <div class="avatar position-relative d-inline-flex">
@@ -13,16 +13,16 @@
               class="avatar-img w-52-px h-52-px rounded-5"
               loading="lazy"
               data-src="{{
-                notification?.ProfilePicName ||
-                  '/assets/images/avtar/NudeGirls-Tube-Square-Logo.png'
+                notification?.profilePicName ||
+                  '/assets/images/avtar/placeholder-user.png'
               }}"
-              onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+              onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
               alt="avatar"
             />
           </div>
           <div class="text-area">
             <h6 class="m-0 mb-1">
-              {{ notification?.Username }}
+              {{ notification?.userName }}
               <!-- <span
                 *ngIf="notification?.isRead === 'N'"
                 class="unread-notification smtxt"

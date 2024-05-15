@@ -272,7 +272,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   createProfile(data) {
     this.spinner.show();
     const profile = {
-      Username: data?.Username,
+      userName: data?.userName,
       FirstName: data?.FirstName,
       LastName: data?.LastName,
       Address: data?.Address,
@@ -284,7 +284,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       MobileNo: data?.MobileNo,
       UserID: window?.sessionStorage?.user_id,
       IsActive: 'N',
-      ProfilePicName: this.profilePic || null,
+      profilePicName: this.profilePic || null,
     };
     console.log(profile);
 
@@ -322,7 +322,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
   onChangeTag(event) {
     // this.registerForm
-    //   .get('Username')
+    //   .get('userName')
     //   .setValue(event.target.value.replaceAll(' ', ''));
   }
 

@@ -26,6 +26,7 @@ export class EditProfileModalComponent implements OnInit {
   statusofRelation: string = '';
   statusofBody: string = '';
   selectedInterests: number[] = [];
+  removeInterestList: number[] = [];
   interests: any[];
   whatImCovid: string = '';
   whatImFlu: string = '';
@@ -143,7 +144,7 @@ export class EditProfileModalComponent implements OnInit {
         return 'history.png';
       case `Body Type`:
         return 'human-body.png';
-      case 'Ideal date':
+      case 'My Story':
         return 'idealDate.png';
       case 'Vaccine status':
         return 'vaccine.png';
@@ -277,12 +278,17 @@ export class EditProfileModalComponent implements OnInit {
     const index = this.selectedInterests.indexOf(id);
     if (index === -1 && this.selectedInterests.length < 10) {
       this.selectedInterests.push(id);
+      if (this.removeInterestList.includes(id)) {
+        this.removeInterestList.splice(index, 1);
+      }
     } else if (index !== -1) {
       this.selectedInterests.splice(index, 1);
+      this.updateUserData?.interestList.forEach((interest: any) => {
+        if (id === interest.interestId && !this.removeInterestList.includes(id)) {
+          this.removeInterestList.push(id)}
+      });
     } else {
-      this.toastService.danger(
-        'You can only select up to 10 values at a time.'
-      );
+      this.toastService.danger('You can only select up to 10 values at a time.');
     }
   }
 
@@ -300,10 +306,12 @@ export class EditProfileModalComponent implements OnInit {
     const data = {
       profileId: this.profileId,
       interestsList: filteredValue,
+      removeInterestList: this.removeInterestList
     };
     this.customerService.addInterests(data).subscribe({
       next: (result) => {
         this.activeModal.close('success');
+        this.submitForm();
       },
       error: (error) => {
         console.log(error);
@@ -378,7 +386,6 @@ export class EditProfileModalComponent implements OnInit {
     this.updateUserData.relationshipType = selectedValue;
     this.submitForm();
   }
-
 
   submitForm(): void {
     this.activeModal.close('success');

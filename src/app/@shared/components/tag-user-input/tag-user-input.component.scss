@@ -35,7 +35,7 @@
     &[placeholder]:empty {
       &:before {
         content: attr(placeholder);
-        color: var(--para-1st-color);
+        color: #697495;
       }
       &:focus {
         &:before {

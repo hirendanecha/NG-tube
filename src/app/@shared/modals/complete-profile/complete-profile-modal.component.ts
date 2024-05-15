@@ -28,6 +28,7 @@ export class CompleteProfileModalComponent implements OnInit, AfterViewInit {
   statusofRelation: string = '';
   statusofBody: string = '';
   selectedInterests: number[] = [];
+  removeInterestList: number[] = [];
   interests: any[];
   profileId: number;
   updateUserData: any = {};
@@ -91,7 +92,7 @@ export class CompleteProfileModalComponent implements OnInit, AfterViewInit {
         return 'human-body.png';
       case 'Photos':
         return 'photo.png';
-      case 'Ideal date':
+      case 'My Story':
         return 'idealDate.png';
       default:
         return 'default.png';
@@ -213,12 +214,17 @@ export class CompleteProfileModalComponent implements OnInit, AfterViewInit {
     const index = this.selectedInterests.indexOf(id);
     if (index === -1 && this.selectedInterests.length < 10) {
       this.selectedInterests.push(id);
+      if (this.removeInterestList.includes(id)) {
+        this.removeInterestList.splice(index, 1);
+      }
     } else if (index !== -1) {
       this.selectedInterests.splice(index, 1);
+      this.updateUserData?.interestList.forEach((interest: any) => {
+        if (id === interest.interestId && !this.removeInterestList.includes(id)) {
+          this.removeInterestList.push(id)}
+      });
     } else {
-      this.toastService.danger(
-        'You can only select up to 10 values at a time.'
-      );
+      this.toastService.danger('You can only select up to 10 values at a time.');
     }
   }
 
@@ -236,10 +242,12 @@ export class CompleteProfileModalComponent implements OnInit, AfterViewInit {
     const data = {
       profileId: this.profileId,
       interestsList: filteredValue,
+      removeInterestList: this.removeInterestList
     }; 
     this.customerService.addInterests(data).subscribe({
       next: (result) => {
         this.activeModal.close();
+        this.sharedService.getUserDetails();
       },
       error: (error) => {
         console.log(error);

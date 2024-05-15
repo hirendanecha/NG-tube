@@ -77,16 +77,23 @@
     <h3 class="text-center">Coming Soon!</h3>
   </ng-container>
 
-  <ng-container *ngIf="title === 'Ideal date'">
+  <ng-container *ngIf="title === 'My Story'">
+    <h5 class="text-center">Please tell your match your story!</h5>
     <textarea
     cols="30"
     rows="8"
     placeholder="start typing..."
     [(ngModel)]="idealText" 
-  ></textarea>
-  <span class="text-danger">{{idealText?.length || 0}} / 300</span>
+    #idealTextCtrl="ngModel" required minlength="20" maxlength="500"
+    ></textarea>
+    <div *ngIf="idealTextCtrl.invalid && (idealTextCtrl.dirty || idealTextCtrl.touched)">
+      <div *ngIf="idealTextCtrl.errors.required" class="text-danger">Minimum of 20 characters and maximum of 500 characters required</div>
+      <div *ngIf="idealTextCtrl.errors.minlength" class="text-danger">Minimum length is 20 characters.</div>
+    </div>
+    <!-- <small class="text-danger">Minimum of 20 characters and maximum of 500 characters</small> -->
+    <span class="text-danger">{{idealText?.length || 0}} / 500</span>
   <div class="d-center m-5">
-    <button type="button" class="btn btn-sm cmn-btn w-200-px" (click)="submitIdealText()">
+    <button type="button" class="btn btn-sm cmn-btn w-200-px" [disabled]="!idealTextCtrl.valid" (click)="submitIdealText()">
       {{ confirmButtonLabel }}
     </button>
   </div>

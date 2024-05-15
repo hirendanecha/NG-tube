@@ -117,7 +117,8 @@
       letter-spacing: 1px;
 
       &:before {
-        content: counter(step);
+        // content: counter(step);
+        content: attr(data-step);
         counter-increment: step;
         width: 24px;
         height: 24px;
@@ -197,6 +198,10 @@
   //   }
   // }
 
+  .input-textarea{
+    color: var(--para-2nd-color);
+  }
+
   .chip-group {
     display: flex;
 
@@ -211,7 +216,7 @@
       padding: 10px 6px;
       margin-right: 6px;
       margin-bottom: 6px;
-
+      text-transform: capitalize;
       > * {
         margin-right: 2px;
         margin-left: 2px;

@@ -35,13 +35,13 @@ export class ResearchDetailsComponent {
 
     this.profileService.getGroupBasicDetails(uniqueLink).subscribe({
       next: (res: any) => {
-        if (res?.ID) {
+        if (res?.id) {
           this.groupDetails = res;
           const data = {
             title: `NudeGirls.tube Research ${this.groupDetails?.PageTitle}`,
             url: `${window.location.href}`,
             description: this.groupDetails?.PageDescription,
-            image: this.groupDetails?.CoverPicName || this.groupDetails?.ProfilePicName
+            image: this.groupDetails?.CoverPicName || this.groupDetails?.profilePicName
           };
           this.seoService.updateSeoMetaData(data);
           this.GetGroupPostById();
@@ -57,7 +57,7 @@ export class ResearchDetailsComponent {
   GetGroupPostById(): void {
     this.spinner.show();
 
-    this.profileService.getGroupPostById(this.groupDetails?.ID, this.pagination?.page, this.pagination?.limit).subscribe({
+    this.profileService.getGroupPostById(this.groupDetails?.id, this.pagination?.page, this.pagination?.limit).subscribe({
       next: (res: any) => {
         if (res?.length > 0) {
           this.posts = [...this.posts, ...res];

@@ -26,15 +26,15 @@
                 (click)="openProfileMobileMenuModal()"
               >
                 <img
-                  *ngIf="sharedService?.userData?.ProfilePicName"
+                  *ngIf="sharedService?.userData?.profilePicName"
                   class="w-48-px h-48-px rounded-3"
                   loading="lazy"
                   data-src="{{ sharedService?.userData?.profilePictures?.[0]?.imageUrl }}"
-                  onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                   alt="avatar"
                 />
                 <img
-                  *ngIf="!sharedService?.userData?.ProfilePicName"
+                  *ngIf="!sharedService?.userData?.profilePicName"
                   src="assets/images/landingpage/NudeGirls-Tube-Square-Logo.png"
                   class="w-48-px h-48-px rounded-3"
                   alt="logo"
@@ -85,11 +85,11 @@
                   <img
                     loading="lazy"
                     class="w-32-px h-32-px rounded"
-                    data-src="{{ user.ProfilePicName }}"
-                    [alt]="user.Username"
-                    onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+                    data-src="{{ user.profilePicName }}"
+                    [alt]="user.userName"
+                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                   />
-                  <span>{{ user.Username.split(" ").join("") }}</span>
+                  <span>{{ user.userName.split(" ").join("") }}</span>
                 </div>
               </ng-container>
             </div>
@@ -126,7 +126,7 @@
             class="nav-icon cursor" 
             data-toggle="tooltip"
             data-placement="bottom"
-            title="OrganicTube Video"
+            title="Nude.girls Video"
           >
             <fa-icon [icon]="['fas', 'play']" class="font-24-px me-7" />
           </a>
@@ -137,6 +137,15 @@
         class="right-area d-lg-flex d-none justify-content-end align-items-center gap-6 cus-z p-0"
         *ngIf="tokenService.getToken()"
       >
+        <div class="single-item">
+          <a
+            class="icon-area d-center position-relative ms-7 c-pointer"
+            target="_blank"
+            [routerLink]="['/chats']"
+          >
+            <fa-icon [icon]="['fas', 'envelope']" class="font-20-px" />
+          </a>
+        </div>
         <div class="single-item">
           <div
             class="icon-area d-center position-relative"
@@ -159,7 +168,7 @@
               class="w-100 h-100 rounded-3"
               loading="lazy"
               data-src="{{ sharedService?.userData?.profilePictures?.[0]?.imageUrl }}"
-              onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+              onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
               alt="avatar"
             />
           </div>

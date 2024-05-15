@@ -6,7 +6,7 @@
           class="w-48-px h-48-px rounded-3"
           loading="lazy"
           data-src="{{ sharedService?.userData?.profilePictures?.[0]?.imageUrl }}"
-          onerror="this.onerror=null;this.src='/assets/images/avtar/NudeGirls-Tube-Square-Logo.png';"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
           alt="avatar"
         />
       </div>
@@ -31,6 +31,14 @@
         class="mdtxt" (click)="closeMenu($event, 'setting')">
         <fa-icon [icon]="['fas', 'gear']" class="font-20-px" />
         Setting & Privacy
+      </a>
+    </li>
+    <li>
+      <a 
+        [routerLink]="'/settings/report-bugs/'"
+        class="mdtxt" (click)="closeMenu($event, 'support')">
+        <fa-icon [icon]="['fas', 'ticket-alt']" class="font-20-px" />
+        Support Page
       </a>
     </li>
     <li>

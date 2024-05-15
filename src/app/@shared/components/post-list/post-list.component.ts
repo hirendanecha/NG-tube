@@ -209,7 +209,7 @@ export class PostListComponent implements OnInit, OnChanges, AfterViewInit {
     this.activePage = this.activePage + 1;
     this.postService
       .getPosts({
-        profileId: this.profileId,
+        profileId: +this.profileId,
         communityId: this.communityId,
         page: this.activePage,
         size: 10,

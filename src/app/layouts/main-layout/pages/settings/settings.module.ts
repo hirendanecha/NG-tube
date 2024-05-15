@@ -9,6 +9,8 @@ import { SharedModule } from 'src/app/@shared/shared.module';
 import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { CompleteProfileComponent } from './complete-profile/complete-profile.component';
 import { SettingsComponent } from './settings.component';
+import { SupportTicketPageComponent } from './support-ticket-page/support-ticket-page.component';
+import { NotificationsModule } from '../notifications/notification.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,9 @@ import { SettingsComponent } from './settings.component';
     SeeFirstUserComponent,
     UnsubscribedUsersComponent,
     CompleteProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    SupportTicketPageComponent,
   ],
-  imports: [SettingsRoutingModule, SharedModule],
+  imports: [SettingsRoutingModule, SharedModule, NotificationsModule],
 })
 export class SettingsModule {}

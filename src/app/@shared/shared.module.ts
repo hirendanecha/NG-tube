@@ -99,6 +99,14 @@ import {
   faChildren,
   faMapLocationDot,
   faEyeSlash,
+  faEnvelope,
+  faPaperclip,
+  faReply,
+  faPhotoFilm,
+  faUsers,
+  faPhoneSlash,
+  faTicketAlt,
+  faBan,
 } from '@fortawesome/free-solid-svg-icons';
 import { ClaimTokenModalComponent } from './modals/clai-1776-token-modal/claim-token-modal.component';
 import { WalletLinkComponent } from './modals/wallet-download-modal/1776-wallet.component';
@@ -126,6 +134,17 @@ import { EditPostModalComponent } from './modals/edit-post-modal/edit-post-modal
 import { CompleteProfileModalComponent } from './modals/complete-profile/complete-profile-modal.component';
 import { SubscribeModalComponent } from './modals/subscribe-model/subscribe-modal.component';
 import { EditProfileModalComponent } from './modals/edit-profile/edit-profile-modal.component';
+import { IncomingcallModalComponent } from './modals/incoming-call-modal/incoming-call-modal.component';
+import { OutGoingCallModalComponent } from './modals/outgoing-call-modal/outgoing-call-modal.component';
+import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component';
+import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component';
+import { QrScanModalComponent } from './modals/qrscan-modal/qrscan-modal.component';
+import { ForwardChatModalComponent } from './modals/forward-chat-modal/forward-chat-modal.component';
+import { AppQrModalComponent } from './modals/app-qr-modal/app-qr-modal.component';
+import { MediaGalleryComponent } from './components/media-gallery/media-gallery.component';
+import { GalleryImgPreviewComponent } from './components/gallery-img-preview/gallery-img-preview.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { RequestModalComponent } from './modals/request-modal/request-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -154,6 +173,17 @@ const sharedComponents = [
   CompleteProfileModalComponent,
   SubscribeModalComponent,
   EditProfileModalComponent,
+  IncomingcallModalComponent,
+  OutGoingCallModalComponent,
+  CreateGroupModalComponent,
+  EditGroupModalComponent,
+  MediaGalleryComponent,
+  ImgPreviewComponent,
+  QrScanModalComponent,
+  ForwardChatModalComponent,
+  AppQrModalComponent,
+  GalleryImgPreviewComponent,
+  RequestModalComponent
 ];
 
 const sharedModules = [
@@ -170,6 +200,7 @@ const sharedModules = [
   FontAwesomeModule,
   PipeModule,
   MentionModule,
+  QRCodeModule,
 ];
 
 @NgModule({
@@ -265,7 +296,17 @@ export class SharedModule {
       faStar,
       faChildren,
       faMapLocationDot,
-      faEyeSlash
+      faEyeSlash,
+      faPhone,
+      faMessage,
+      faEnvelope,
+      faPaperclip,
+      faReply,
+      faPhotoFilm,
+      faUsers,
+      faPhoneSlash,
+      faTicketAlt,
+      faBan
     );
   }
 }

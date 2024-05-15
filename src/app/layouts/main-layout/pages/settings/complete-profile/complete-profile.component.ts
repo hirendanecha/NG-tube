@@ -14,9 +14,9 @@ export class CompleteProfileComponent implements OnInit, AfterViewInit {
   steps: string[] = [
     'Photos',
     'Relationship History',
-    'Ideal date',
+    'My Story',
     'Body Type',
-    // 'Interests',
+    'Interests',
   ];
   existingUserData: any = {};
   // 'Industry',
@@ -69,7 +69,7 @@ export class CompleteProfileComponent implements OnInit, AfterViewInit {
         return this.existingUserData.profilePictures.length;
       case 'Body Type':
         return this.existingUserData.bodyType !== null;
-      case 'Ideal date':
+      case 'My Story':
         return this.existingUserData.idealDate !== null;
       case 'Interests':
         return (

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
 import { MainLayoutComponent } from './main-layout.component';
 import { AuthenticationGuard } from 'src/app/@shared/guards/authentication.guard';
+import { AppointmentCallComponent } from 'src/app/@shared/components/appointment-call/appointment-call.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
           import('./pages/home/home.module').then((m) => m.HomeModule),
         data: {
           isShowLeftSideBar: true,
+          isShowRightSideBar: true,
         },
       },
       {
@@ -27,17 +29,17 @@ const routes: Routes = [
         },
         // canActivate: mapToCanActivate([AuthenticationGuard]),
       },
-      // {
-      //   path: 'nude-girls',
-      //   loadChildren: () =>
-      //     import('./pages/find-connections/find-connections.module').then(
-      //       (m) => m.ConnectionsModule
-      //     ),
-      //   data: {
-      //     isShowLeftSideBar: true,
-      //   },
-      //   canActivate: mapToCanActivate([AuthenticationGuard]),
-      // },
+      {
+        path: 'nude-girls',
+        loadChildren: () =>
+          import('./pages/find-connections/find-connections.module').then(
+            (m) => m.ConnectionsModule
+          ),
+        data: {
+          isShowLeftSideBar: true,
+        },
+        canActivate: mapToCanActivate([AuthenticationGuard]),
+      },
       {
         path: 'carousel',
         loadChildren: () =>
@@ -46,11 +48,12 @@ const routes: Routes = [
           ),
         data: {
           isShowLeftSideBar: true,
+          isShowRightSideBar: true,
         },
         canActivate: mapToCanActivate([AuthenticationGuard]),
       },
       {
-        path: 'nude-girls',
+        path: 'community',
         loadChildren: () =>
           import('./pages/communities/communities.module').then(
             (m) => m.CommunitiesModule
@@ -116,6 +119,32 @@ const routes: Routes = [
           isShowLeftSideBar: false,
           isShowRightSideBar: false,
           isShowResearchLeftSideBar: false,
+        },
+        canActivate: mapToCanActivate([AuthenticationGuard]),
+      },
+      {
+        path: 'chats',
+        loadChildren: () =>
+          import('./pages/profile-chats/profile-chats.module').then(
+            (m) => m.ProfileChartsModule
+          ),
+        data: {
+          isShowLeftSideBar: false,
+          isShowRightSideBar: false,
+          isShowResearchLeftSideBar: false,
+          isShowChatModule: true,
+        },
+        canActivate: mapToCanActivate([AuthenticationGuard]),
+      },
+      {
+        path: 'dating-call/:callId',
+        component: AppointmentCallComponent,
+        data: {
+          isShowLeftSideBar: false,
+          isShowRightSideBar: false,
+          isShowResearchLeftSideBar: false,
+          isShowChatListSideBar: false,
+          isShowChatModule: true,
         },
         canActivate: mapToCanActivate([AuthenticationGuard]),
       },

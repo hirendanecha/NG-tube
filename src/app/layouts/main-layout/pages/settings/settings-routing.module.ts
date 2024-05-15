@@ -7,6 +7,7 @@ import { SeeFirstUserComponent } from './see-first-user/see-first-user.component
 import { UnsubscribedUsersComponent } from './unsubscribed-users/unsubscribed-users.component';
 import { CompleteProfileComponent } from './complete-profile/complete-profile.component';
 import { SettingsComponent } from './settings.component';
+import { SupportTicketPageComponent } from './support-ticket-page/support-ticket-page.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'unsubscribed-users',
     component: UnsubscribedUsersComponent,
+  },
+  {
+    path: 'report-bugs',
+    component: SupportTicketPageComponent,
   },
 ];
 
