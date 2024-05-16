@@ -195,10 +195,21 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="profileList[currentIndex]?.idealDate">
+  <ng-container>
     <div class="story-box single-box h-156-px p-8">
       <h4 class="text-start">My Story</h4>
-      <p class="text-start mt-5 story-area">{{profileList[currentIndex]?.idealDate}}</p>
+      <p
+        class="text-start mt-5 story-area"
+        *ngIf="profileList[currentIndex]?.idealDate"
+      >
+        {{ profileList[currentIndex]?.idealDate }}
+      </p>
+      <p
+        class="text-start mt-5 story-area"
+        *ngIf="!profileList[currentIndex]?.idealDate"
+      >
+        Not yet completed!
+      </p>
     </div>
   </ng-container>
 
