@@ -648,7 +648,7 @@ export class OnBoardingComponent implements OnInit {
     } else if (smoke === 'No') {
       mappedValue = 'N';
     } else {
-      mappedValue = 'It does not matter';
+      mappedValue = 'N';
     }
     this.matchStatusofSmoke = smoke;
     this.onBoardingForm.get('matchIsSmoke').setValue(mappedValue);
