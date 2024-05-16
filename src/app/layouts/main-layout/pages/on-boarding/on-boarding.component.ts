@@ -37,6 +37,7 @@ export class OnBoardingComponent implements OnInit {
     'WHO ARE YOU LOOKING FOR?',
     'WHO ARE YOU LOOKING FOR?',
     'My Story',
+    'Interest',
   ];
   childOptions = [
     'No',
@@ -142,11 +143,16 @@ export class OnBoardingComponent implements OnInit {
     matchBodyType: new FormControl('', [Validators.required]),
     matchReligion: new FormControl('', [Validators.required]),
     matchIsSmoke: new FormControl('', [Validators.required]),
-    idealText: new FormControl('', [
+    idealDate: new FormControl('', [
       Validators.minLength(20),
       Validators.maxLength(500),
     ]),
+    interests: new FormControl([]),
   });
+
+  selectedInterests: number[] = [];
+  removeInterestList: number[] = [];
+  interests: any[];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -167,6 +173,7 @@ export class OnBoardingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCountries();
+    this.getAllinterests();
   }
 
   ngAfterViewInit(): void {
@@ -322,6 +329,16 @@ export class OnBoardingComponent implements OnInit {
         condition: this.onBoardingForm.get('matchIsSmoke').valid,
         errorMessage: 'Please select an option',
       },
+      {
+        step: 17,
+        condition: true,
+        errorMessage: '',
+      },
+      {
+        step: 18,
+        condition: true,
+        errorMessage: '',
+      },
     ];
     const validation = validations.find(
       (item) => item.step === this.currentStep
@@ -403,7 +420,8 @@ export class OnBoardingComponent implements OnInit {
     const userName = this.tokenStorageService.getUser()?.userName;
     this.onBoardingForm.get('userId').setValue(this.userId);
     this.onBoardingForm.get('userName').setValue(userName);
-    // console.log(this.onBoardingForm.value);
+    this.onBoardingForm.get('interests').setValue(this.selectedInterests);
+    console.log(this.onBoardingForm.value);
     this.customerService
       .updateProfile(this.profileId, this.onBoardingForm.value)
       .subscribe({
@@ -634,5 +652,45 @@ export class OnBoardingComponent implements OnInit {
     }
     this.matchStatusofSmoke = smoke;
     this.onBoardingForm.get('matchIsSmoke').setValue(mappedValue);
+  }
+
+  getAllinterests() {
+    this.customerService.getInterests().subscribe({
+      next: (result) => {
+        this.interests = result.data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  onClickInterest(id: number) {
+    const index = this.selectedInterests.indexOf(id);
+    if (index === -1 && this.selectedInterests.length < 10) {
+      this.selectedInterests.push(id);
+      // if (this.removeInterestList.includes(id)) {
+      //   this.removeInterestList.splice(index, 1);
+      // }
+    } else if (index !== -1) {
+      this.selectedInterests.splice(index, 1);
+      // this.selectedInterests.forEach((interest: any) => {
+      //   if (
+      //     id === interest.interestId &&
+      //     !this.removeInterestList.includes(id)
+      //   ) {
+      //     this.removeInterestList.push(id);
+      //   }
+      // });
+      console.log(this.selectedInterests);
+    } else {
+      this.toastService.danger(
+        'You can only select up to 10 values at a time.'
+      );
+    }
+  }
+
+  isSelected(id: number): boolean {
+    return this.selectedInterests.includes(id);
   }
 }

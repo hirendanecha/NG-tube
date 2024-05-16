@@ -155,6 +155,24 @@
     }
   }
 
+  .intrests-box {
+    border-radius: 10px;
+    text-align: start;
+    max-height: 264px;
+    overflow-y: auto;
+
+    .itrested-item {
+      background: var(--primary-color);
+      border-radius: 25px;
+      padding: 8px 15px;
+      cursor: pointer;
+
+      &.active {
+        background-color: var(--highlight-2nd-color);
+      }
+    }
+  }
+
   // chips
   // .chip-group {
   //   display: flex;
@@ -198,7 +216,7 @@
   //   }
   // }
 
-  .input-textarea{
+  .input-textarea {
     color: var(--para-2nd-color);
   }
 
