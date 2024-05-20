@@ -13,6 +13,11 @@
         >Settings</span
       >
     </div>
+    <div class="c-pointer" (click)="editProfieMenu()" *ngIf="visibleIndex === 'profile'">
+      <fa-icon class="top-icon me-3" [icon]="['fas', 'pencil']" /><span
+        >Edit</span
+      >
+    </div>
   </div>
   <div class="single-box mt-5 p-8" *ngIf="!isCollapsed">
     <ul class="d-flex flex-column ps-0 mb-0 c-pointer">

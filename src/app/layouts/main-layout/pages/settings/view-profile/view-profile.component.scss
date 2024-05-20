@@ -151,6 +151,15 @@
     min-height: 500px;
     max-height: 500px;
   }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .dropdown-menu {
+    background-color: var(--icon-color) !important;
+    border: 1px solid var(--scroll-color) !important;
+    cursor: pointer !important;
+  }
+  
   
   ::-webkit-scrollbar {
     width: 5px !important;

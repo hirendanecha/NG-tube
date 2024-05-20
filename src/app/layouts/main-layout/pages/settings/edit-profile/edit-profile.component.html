@@ -83,6 +83,24 @@
             />
           </div>
           <div class="col-12 col-md-12 mb-3">
+            <label class="d-flex form-label">Country</label>
+            <select
+              id="country"
+              name="country"
+              class="input-area w-100"
+              [(ngModel)]="customer.country"
+              (change)="changeCountry()"
+            >
+              <option value="">Select Country</option>
+              <option
+                [value]="item.country_code"
+                *ngFor="let item of allCountryData"
+              >
+                {{ item.country }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-md-12 mb-3">
             <label class="d-flex form-label">Zip Code</label>
             <input
               type="text"
@@ -106,19 +124,30 @@
                 [(ngModel)]="customer.state"
               />
             </div> -->
+            <div class="col-12 col-md-12 mb-3">
+              <label class="d-flex form-label">State</label>
+  
+              <input
+                type="text"
+                class="input-area"
+                name="state"
+                placeholder="Enter your State"
+                [(ngModel)]="customer.state"
+              />
+            </div>
           <div class="col-12 col-md-12 mb-3">
             <label class="d-flex form-label">City</label>
 
             <input
               type="text"
               class="input-area"
-              name="County"
+              name="city"
               placeholder="Enter your city"
               [(ngModel)]="customer.city"
             />
           </div>
 
-          <div class="col-12 col-md-12 mb-3">
+          <!-- <div class="col-12 col-md-12 mb-3">
             <label class="d-flex form-label">Country</label>
             <select
               id="country"
@@ -134,7 +163,7 @@
                 {{ item.country }}
               </option>
             </select>
-          </div>
+          </div> -->
         </div>
         <div class="row">
           <!-- <div class="col-6 col-md-6 mb-3">

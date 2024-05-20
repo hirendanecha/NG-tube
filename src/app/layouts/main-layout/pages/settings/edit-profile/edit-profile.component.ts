@@ -39,11 +39,11 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   uploadListSubject: Subject<void> = new Subject<void>();
   profileImg: any = {
     file: null,
-    url: ''
+    url: '',
   };
   profileCoverImg: any = {
     file: null,
-    url: ''
+    url: '',
   };
   isNotificationSoundEnabled: boolean = true;
 
@@ -61,7 +61,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   ) {
     this.userlocalId = +localStorage.getItem('user_id');
     this.userId = this.route.snapshot.paramMap.get('id');
-    this.profileId = +(this.tokenStorage.getUser().profileId) as any;
+    this.profileId = +this.tokenStorage.getUser().profileId as any;
     this.userMail = localStorage.getItem('email');
     if (this.profileId) {
       this.getProfile(this.profileId);
@@ -77,16 +77,16 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.modalService.dismissAll();
     const notificationSound = localStorage.getItem('notificationSoundEnabled');
     if (notificationSound === 'N') {
-      this.isNotificationSoundEnabled = false
+      this.isNotificationSoundEnabled = false;
     }
   }
 
   ngAfterViewInit(): void {
-    // fromEvent(this.zipCode.nativeElement, 'input')
-    //   .pipe(debounceTime(1000))
-    //   .subscribe((event) => {
-    //     // this.onZipChange(event['target'].value);
-    //   });
+    fromEvent(this.zipCode.nativeElement, 'input')
+      .pipe(debounceTime(1000))
+      .subscribe((event) => {
+        this.onZipChange(event['target'].value);
+      });
   }
 
   getUserDetails(id): void {
@@ -123,10 +123,12 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   changeCountry() {
-    this.customer.Zip = '';
-    this.customer.State = '';
-    this.customer.City = '';
-    this.customer.County = '';
+    console.log('change');
+
+    this.customer.zip = '';
+    this.customer.state = '';
+    this.customer.city = '';
+    this.customer.county = '';
     // this.customer.Place = '';
   }
 
@@ -136,33 +138,29 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   getAllCountries() {
-    this.customerService.getCountriesData().subscribe(
-      {
-        next: (result) => {
-          this.allCountryData = result;
-        },
-        error:
-          (error) => {
-            console.log(error);
-          }
-      });
+    this.customerService.getCountriesData().subscribe({
+      next: (result) => {
+        this.allCountryData = result;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   onZipChange(event) {
-    this.customerService.getZipData(event, this.customer?.Country).subscribe(
-      {
-        next: (data) => {
-          let zip_data = data[0];
-          this.customer.State = zip_data ? zip_data.state : '';
-          this.customer.City = zip_data ? zip_data.city : '';
-          this.customer.County = zip_data ? zip_data.places : '';
-          // this.customer.Place = zip_data ? zip_data.places : '';
-        },
-        error:
-          (err) => {
-            console.log(err);
-          }
-      });
+    this.customerService.getZipData(event, this.customer?.country).subscribe({
+      next: (data) => {
+        let zip_data = data[0];
+        this.customer.state = zip_data ? zip_data.state : '';
+        this.customer.city = zip_data ? zip_data.city : '';
+        this.customer.county = zip_data ? zip_data.places : '';
+        // this.customer.Place = zip_data ? zip_data.places : '';
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   confirmAndUpdateCustomer(): void {
@@ -187,11 +185,15 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   uploadImgAndUpdateCustomer(): void {
     let uploadObs = {};
     if (this.profileImg?.file?.name) {
-      uploadObs['profileImg'] = this.uploadService.uploadFile(this.profileImg?.file);
+      uploadObs['profileImg'] = this.uploadService.uploadFile(
+        this.profileImg?.file
+      );
     }
 
     if (this.profileCoverImg?.file?.name) {
-      uploadObs['profileCoverImg'] = this.uploadService.uploadFile(this.profileCoverImg?.file);
+      uploadObs['profileCoverImg'] = this.uploadService.uploadFile(
+        this.profileCoverImg?.file
+      );
     }
 
     if (Object.keys(uploadObs)?.length > 0) {
@@ -227,29 +229,35 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   updateCustomer(): void {
     if (this.profileId) {
       this.spinner.show();
-      this.customer.profilePicName = this.profileImg?.url || this.customer.profilePicName;
-      this.customer.CoverPicName = this.profileCoverImg?.url || this.customer.CoverPicName;
+      this.customer.profilePicName =
+        this.profileImg?.url || this.customer.profilePicName;
+      this.customer.CoverPicName =
+        this.profileCoverImg?.url || this.customer.CoverPicName;
       this.customer.IsActive = 'Y';
       this.customer.UserID = +this.userId;
-      console.log('update', this.customer)
-      this.customerService.updateProfile(this.profileId, this.customer).subscribe({
-        next: (res: any) => {
-          this.spinner.hide();
-          if (!res.error) {
-            this.toastService.success(res.message);
-            this.sharedService.getUserDetails();
-          } else {
-            // this.toastService.danger(res?.message);
+      console.log('update', this.customer);
+      this.customerService
+        .updateProfile(this.profileId, this.customer)
+        .subscribe({
+          next: (res: any) => {
+            this.spinner.hide();
+            if (!res.error) {
+              this.toastService.success(res.message);
+              this.sharedService.getUserDetails();
+            } else {
+              // this.toastService.danger(res?.message);
+              this.toastService.danger(
+                'something went wrong please try again!'
+              );
+            }
+          },
+          error: (error) => {
+            console.log(error.error.message);
+            this.spinner.hide();
+            // this.toastService.danger(error.error.message);
             this.toastService.danger('something went wrong please try again!');
-          }
-        },
-        error: (error) => {
-          console.log(error.error.message);
-          this.spinner.hide();
-          // this.toastService.danger(error.error.message);
-          this.toastService.danger('something went wrong please try again!');
-        }
-      });
+          },
+        });
     }
   }
 
@@ -260,15 +268,14 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
         if (res.data) {
           this.customer = res.data;
-          console.log("customer  : ", this.customer)
+          console.log('customer  : ', this.customer)
           this.getAllCountries();
         }
       },
-      error:
-        (error) => {
-          this.spinner.hide();
-          console.log(error);
-        }
+      error: (error) => {
+        this.spinner.hide();
+        console.log(error);
+      },
     });
   }
 
@@ -291,19 +298,23 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       'Are you sure want to delete your account?';
     modalRef.result.then((res) => {
       if (res === 'success') {
-        this.customerService.deleteCustomer(this.userlocalId, this.profileId).subscribe({
-          next: (res: any) => {
-            if (res) {
-              this.toastService.success(res.message || 'Account deleted successfully');
-              this.tokenStorage.signOut();
-              this.router.navigateByUrl('register');
-            }
-          },
-          error: (error) => {
-            console.log(error);
-            this.toastService.success(error.message);
-          },
-        });
+        this.customerService
+          .deleteCustomer(this.userlocalId, this.profileId)
+          .subscribe({
+            next: (res: any) => {
+              if (res) {
+                this.toastService.success(
+                  res.message || 'Account deleted successfully'
+                );
+                this.tokenStorage.signOut();
+                this.router.navigateByUrl('register');
+              }
+            },
+            error: (error) => {
+              console.log(error);
+              this.toastService.success(error.message);
+            },
+          });
       }
     });
   }
@@ -316,8 +327,11 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     const soundOct = localStorage.getItem('notificationSoundEnabled');
     if (soundOct === 'Y') {
       localStorage.setItem('notificationSoundEnabled', 'N');
-    } else {
-      localStorage.setItem('notificationSoundEnabled', this.isNotificationSoundEnabled ? 'Y' : 'N');
+    }  else {
+      localStorage.setItem(
+        'notificationSoundEnabled',
+        this.isNotificationSoundEnabled ? 'Y' : 'N'
+      );
     }
   }
 

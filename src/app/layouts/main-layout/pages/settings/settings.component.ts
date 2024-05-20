@@ -85,4 +85,7 @@ export class SettingsComponent {
       },
     });
   }
+  editProfieMenu(){
+    this.visibleIndex = 'account';
+  }
 }

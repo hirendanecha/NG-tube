@@ -318,6 +318,215 @@
               </div>
             </div>
       </div>
-        
+  </ng-container>
+
+  <ng-container *ngIf="title === 'Match Unvaccinated?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="mt-5 mb-4">
+          Is it required for your match to be Covid-19 Unvaccinated?
+        </h6>
+      </div>
+      <div class="d-flex justify-content-around">
+        <div
+          class="chip-group flex-wrap d-center"
+          tabindex="-1"
+          role="radiogroup"
+        >
+          <div
+            (click)="matchVaccineStatus('Y')"
+            class="chip chip-checkbox justify-content-center"
+            tabindex="0"
+            role="radio"
+            [ngClass]="matchStatusofVaccine === 'Y' ? 'active' : ''"
+            aria-checked="false"
+          >
+            <input type="radio" name="radioEx" />
+            <span id="radioOneLabel">Yes</span>
+          </div>
+          <div
+            (click)="matchVaccineStatus('N')"
+            [ngClass]="matchStatusofVaccine === 'N' ? 'active' : ''"
+            class="chip chip-checkbox justify-content-center"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <input type="radio" name="radioEx" />
+            <span id="radioTwoLabel">No</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Match Have Children?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">CAN YOUR MATCH HAVE CHILDREN</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+      <!-- [ngClass]="matchStatusofChild === option ? 'active' : ''" -->
+        <div
+          *ngFor="let option of matchnoYesOptions()"
+          (click)="matchChildStatus(option)"
+          [ngClass]="(matchStatusofChild === option) || (!matchStatusofChild && option === 'It Does Not Matter') ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Want An Educated Match?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">DO YOU WANT YOUR MATCH TO BE EDUCATED?</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+        <div
+          *ngFor="let option of studyOptions"
+          (click)="matchStudyStatus(option)"
+          [ngClass]="matchStatusofStudy === option ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Specific Ethnicity?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">ARE YOU SEEKING A SPEECIFIC ETHNICITY?</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+        <div
+          *ngFor="let option of matchEthnicities()"
+          (click)="matchEthnicityStatus(option)"
+          [ngClass]="matchStatusofEthnicity === option ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Match Body Type?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">ARE YOU SEEKING A SPEECIFIC BODY TYPE?</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+        <div
+          *ngFor="let option of bodyTypeOptions"
+          (click)="matchBodyType(option)"
+          [ngClass]="matchStatusofBody === option ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Specific Religion?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">ARE YOU SEEKING A SPEECIFIC RELIGION?</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+        <div
+          *ngFor="let option of matchReligions()"
+          (click)="matchReligionStatus(option)"
+          [ngClass]="matchStatusofReligion === option ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="title === 'Can Match Smoke?'">
+    <div class="d-center flex-column">
+      <div class="d-flex flex-column">
+        <h6 class="py-sm-3">CAN YOUR MATCH SMOKE?</h6>
+      </div>
+      <div
+        class="d-flex flex-column gap-3 chip-group"
+        tabindex="-1"
+        role="radiogroup"
+      >
+      <!-- [ngClass]="matchStatusofSmoke === option ? 'active' : ''" -->
+        <div
+          *ngFor="let option of matchnoYesOptions()"
+          (click)="matchSmokeStatus(option)"
+          [ngClass]="(matchStatusofSmoke === option) || (!matchStatusofSmoke && option === 'It Does Not Matter') ? 'active' : ''"
+          class="chip chip-checkbox justify-content-center w-268-px"
+          tabindex="0"
+          role="radio"
+          aria-checked="false"
+          [attr.id]="generateId(option)"
+        >
+          <input type="radio" name="radioEx" />
+          <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
+            option
+          }}</span>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </div>

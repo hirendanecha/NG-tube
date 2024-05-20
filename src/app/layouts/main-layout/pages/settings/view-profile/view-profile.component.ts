@@ -181,6 +181,18 @@ export class ViewProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   imageChange(img: any) {
     this.displayImage = img;
   }
+  
+  getStatus(value: string | null): string {
+    if (value === 'Y') {
+      return 'Yes';
+    } else if (value === 'N') {
+      return 'No';
+    } else if (value === null) {
+      return `It Does Not Matter`;
+    } else {
+      return value;
+    }
+  }
 
   openModel(field: string): void {
     const modalRef = this.modal.open(EditProfileModalComponent, {

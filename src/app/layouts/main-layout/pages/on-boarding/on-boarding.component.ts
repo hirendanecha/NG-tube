@@ -85,7 +85,7 @@ export class OnBoardingComponent implements OnInit {
     'Other',
   ];
   bodyTypeOptions = [
-    'It does not matter',
+    'It Does Not Matter',
     'Slim',
     'Athletic',
     'Average',
@@ -135,6 +135,9 @@ export class OnBoardingComponent implements OnInit {
     country: new FormControl('US', [Validators.required]),
     zip: new FormControl({ value: '', disabled: true }, [Validators.required]),
     city: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    state: new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
     imageUrl: new FormControl('', [Validators.required]),
     matchIsVaccinated: new FormControl('', [Validators.required]),
     matchHaveChild: new FormControl('', [Validators.required]),
@@ -177,14 +180,14 @@ export class OnBoardingComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    // fromEvent(this.zipCode.nativeElement, 'input')
-    //   .pipe(debounceTime(1000))
-    //   .subscribe((event) => {
-    //     const val = event['target'].value;
-    //     if (val.length > 3) {
-    //       this.onZipChange(val);
-    //     }
-    //   });
+    fromEvent(this.zipCode.nativeElement, 'input')
+      .pipe(debounceTime(1000))
+      .subscribe((event) => {
+        const val = event['target'].value;
+        if (val.length > 3) {
+          this.onZipChange(val);
+        }
+      });
   }
   visibleSteps(): number[] {
     let rangeStart = Math.max(0, this.currentStep - 2);
@@ -473,6 +476,9 @@ export class OnBoardingComponent implements OnInit {
             this.onBoardingForm.patchValue({
               city: zipData.city,
             });
+            this.onBoardingForm.patchValue({
+              state: zipData.state,
+            });
           } else {
             // this.onBoardingForm.get('city').enable();
             this.toastService.danger(data?.message);
@@ -484,6 +490,17 @@ export class OnBoardingComponent implements OnInit {
           console.log(err);
         }
       );
+  }
+  changeCountry() {
+    console.log('change');
+    this.onBoardingForm.get('zip').setValue('');
+    this.onBoardingForm.get('state').setValue('');
+    this.onBoardingForm.get('city').setValue('');
+    // this.customer.zip = '';
+    // this.customer.state = '';
+    // this.customer.city = '';
+    // this.customer.county = '';
+    // this.customer.Place = '';
   }
 
   selectFiles(event) {
@@ -588,15 +605,15 @@ export class OnBoardingComponent implements OnInit {
 
   //match pepole
   matchEthnicities() {
-    return ['It does not matter', ...this.ethnicities];
+    return ['It Does Not Matter', ...this.ethnicities];
   }
 
   matchReligions() {
-    return ['It does not matter', ...this.religions];
+    return ['It Does Not Matter', ...this.religions];
   }
 
   matchnoYesOptions() {
-    return ['It does not matter', ...this.noYesOptions];
+    return ['It Does Not Matter', ...this.noYesOptions];
   }
 
   matchVaccineStatus(vaccine: string) {
@@ -648,7 +665,7 @@ export class OnBoardingComponent implements OnInit {
     } else if (smoke === 'No') {
       mappedValue = 'N';
     } else {
-      mappedValue = 'N';
+      mappedValue = null;
     }
     this.matchStatusofSmoke = smoke;
     this.onBoardingForm.get('matchIsSmoke').setValue(mappedValue);
@@ -685,7 +702,7 @@ export class OnBoardingComponent implements OnInit {
       console.log(this.selectedInterests);
     } else {
       this.toastService.danger(
-        'You can only select up to 10 values at a time.'
+        'You can only select up to 30 values at a time.'
       );
     }
   }
