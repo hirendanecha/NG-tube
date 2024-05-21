@@ -9,7 +9,9 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubscribeModalComponent } from 'src/app/@shared/modals/subscribe-model/subscribe-modal.component';
 import { CustomerService } from 'src/app/@shared/services/customer.service';
+import { FavoriteProfileService } from 'src/app/@shared/services/favorite.service';
 import { SeoService } from 'src/app/@shared/services/seo.service';
+import { ToastService } from 'src/app/@shared/services/toast.service';
 import { TokenStorageService } from 'src/app/@shared/services/token-storage.service';
 
 @Component({
@@ -24,28 +26,6 @@ export class CarouselComponent implements OnInit {
 
   imgWidth: number = 0;
   isSlideAnimating: boolean = false;
-  slides: any = [
-    {
-      img: 'assets/images/banner/banner-1.png',
-    },
-    {
-      img: 'assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
-    },
-  ];
-  rightImage: any = [
-    {
-      img: 'assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
-    },
-    {
-      img: 'assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
-    },
-    {
-      img: 'assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
-    },
-    {
-      img: 'assets/images/landingpage/NudeGirls-Tube-Square-Logo.png',
-    },
-  ];
   dataList: any = [];
   pagination: any = {
     page: 0,
@@ -60,11 +40,13 @@ export class CarouselComponent implements OnInit {
     private customerService: CustomerService,
     private modelService: NgbModal,
     private seoService: SeoService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private favoriteProfileService: FavoriteProfileService,
+    private toasterService: ToastService,
   ) {
     this.profileId = +localStorage.getItem('profileId');
     const data = {
-      title: 'NudeGirls.tube Carousel',
+      title: 'NudeGirls-Carousel',
       url: `${location.href}`,
       description: '',
     };
@@ -122,5 +104,27 @@ export class CarouselComponent implements OnInit {
       centered: true,
     });
     // modalRef.componentInstance.data = this.dataList;
+  }
+
+  addFavorite(dataList: any){
+    const data = {
+      profileId: dataList.profileId,
+      likedByProfileId: this.profileId
+    }
+    this.favoriteProfileService.addFavoriteProfile(data).subscribe({
+      next: (res) => {
+        this.toasterService.success('Profile successfully added to your favorites');
+        this.getPictures(this.pagination);
+      }
+    })
+  }
+
+  removeFavorite(dataList: any){
+    this.favoriteProfileService.removeFavoriteProfile(this.profileId, dataList.profileId).subscribe({
+      next: (res) => {
+        this.toasterService.danger('Profile successfully remove from your favorites');
+        this.getPictures(this.pagination);
+      }
+    })
   }
 }

@@ -153,7 +153,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       next: (data) => {
         let zip_data = data[0];
         this.customer.state = zip_data ? zip_data.state : '';
-        this.customer.city = zip_data ? zip_data.city : '';
+        this.customer.city = zip_data ? zip_data.places : '';
         this.customer.county = zip_data ? zip_data.places : '';
         // this.customer.Place = zip_data ? zip_data.places : '';
       },

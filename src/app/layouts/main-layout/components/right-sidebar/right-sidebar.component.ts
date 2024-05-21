@@ -7,6 +7,7 @@ import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { UserRewardDetailsService } from 'src/app/@shared/services/user-reward-details.service';
 import { TokenStorageService } from 'src/app/@shared/services/token-storage.service';
+import { FavoriteProfileService } from 'src/app/@shared/services/favorite.service';
 
 @Component({
   selector: 'app-right-sidebar',
@@ -27,7 +28,9 @@ export class RightSidebarComponent implements OnInit {
     private activeOffcanvas: NgbActiveOffcanvas,
     public breakpointService: BreakpointService,
     private userRewardDetailsService: UserRewardDetailsService,
-    public tokenService: TokenStorageService
+    public tokenService: TokenStorageService,
+    private favoriteProfileService: FavoriteProfileService
+
   ) {
     // this.breakpointService.screen.subscribe((res) => {
     //   if (res.xl.gatherThen) {
@@ -36,7 +39,9 @@ export class RightSidebarComponent implements OnInit {
     //     this.isCommunitiesLoader = false;
     //   }
     // });
-    this.getCommunityList()
+    // this.getCommunityList()
+    this.getFavoriteProfileList();
+
   }
 
   ngOnInit(): void {
@@ -49,11 +54,13 @@ export class RightSidebarComponent implements OnInit {
 
   getCountByProfileId(): void {
     const profileId = localStorage.getItem('profileId');
-    this.userRewardDetailsService.getCountByProfileId(+profileId).subscribe((res: any) => {
-      if (res?.data) {
-        this.counts = res?.data || {};
-      }
-    });
+    this.userRewardDetailsService
+      .getCountByProfileId(+profileId)
+      .subscribe((res: any) => {
+        if (res?.data) {
+          this.counts = res?.data || {};
+        }
+      });
   }
 
   getCommunityList(): void {
@@ -82,5 +89,20 @@ export class RightSidebarComponent implements OnInit {
 
   closeSidebar(): void {
     this.activeOffcanvas.dismiss('close');
+  }
+  getFavoriteProfileList() {
+    const profileId = +localStorage.getItem('profileId');
+    this.isCommunitiesLoader = true;
+    this.favoriteProfileService.getFavoriteProfile(profileId).subscribe({
+      next: (res: any) => {
+        this.communities = res.data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.isCommunitiesLoader = false;
+      },
+    });
   }
 }

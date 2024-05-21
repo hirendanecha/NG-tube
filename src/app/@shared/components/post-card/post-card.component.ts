@@ -29,6 +29,7 @@ import { SeoService } from '../../services/seo.service';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { EditResearchModalComponent } from '../../modals/edit-research-modal/edit-research-modal.component';
 import { SharePostModalComponent } from '../../modals/share-post-modal/share-post-modal.component';
+import { FavoriteProfileService } from '../../services/favorite.service';
 
 declare var jwplayer: any;
 @Component({
@@ -98,7 +99,9 @@ export class PostCardComponent implements OnInit {
     public tokenService: TokenStorageService,
     private seoService: SeoService,
     public breakpointService: BreakpointService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private favoriteProfileService: FavoriteProfileService
+
   ) {
     this.router
     this.profileId = localStorage.getItem('profileId');
@@ -794,5 +797,26 @@ export class PostCardComponent implements OnInit {
     } else {
       this.commentData.comment = content;
     }
+  }
+  addFavorite(dataList: any){
+    const data = {
+      profileId: dataList.profileid,
+      likedByProfileId: this.profileId
+    }
+    this.favoriteProfileService.addFavoriteProfile(data).subscribe({
+      next: (res: any) => {
+        this.toastService.success(res.message);
+        this.getPostList?.emit();
+      }
+    })
+  }
+
+  removeFavorite(dataList: any){
+    this.favoriteProfileService.removeFavoriteProfile(this.profileId, dataList.profileid).subscribe({
+      next: (res: any) => {
+        this.toastService.danger(res.message);
+        this.getPostList?.emit();
+      }
+    })
   }
 }

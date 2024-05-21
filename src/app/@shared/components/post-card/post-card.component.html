@@ -379,13 +379,17 @@
         {{ post?.likescount > 0 ? post?.likescount : 0 }}
         <p class="d-lg-block d-none m-0">Likes</p>
       </button>
-      <button
-        class="d-center gap-1 gap-sm-2 mdtxt align-items-center"
-        ngbTooltip="Coming Soon!"
-        placement="bottom"
-      >
-        <fa-icon [icon]="['fas', 'message']" class="font-20-px" />
-        Video reply
+      <button *ngIf="!post.isFavorite"
+      class="d-center gap-1 gap-sm-2 mdtxt align-items-center" (click)="addFavorite(post)"
+    >
+      <fa-icon [icon]="['fas', 'star']" class="font-20-px" />
+      Add Favorite
+    </button>
+    <button *ngIf="post.isFavorite"
+      class="d-center gap-1 gap-sm-2 mdtxt align-items-center" (click)="removeFavorite(post)"
+    >
+      <fa-icon [icon]="['fas', 'star']" class="font-20-px" />
+      Favorite
       </button>
       <button
         class="d-center gap-1 gap-sm-2 mdtxt align-items-center"

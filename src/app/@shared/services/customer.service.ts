@@ -91,7 +91,7 @@ export class CustomerService {
 
   getPictures(pages, limit, profileId, gender): Observable<object> {
     return this.http.get(
-      `${this.baseUrl}/get-profile-pictures/${profileId}?page=${pages}&limit=${limit}&gender=${gender}`
+      `${this.baseUrl}/get-profile-pictures/${profileId}?page=${pages}&limit=${limit}&gender=${gender}&?q=${Date.now()}`
     );
   }
 
