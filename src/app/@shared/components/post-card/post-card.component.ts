@@ -805,6 +805,7 @@ export class PostCardComponent implements OnInit {
     }
     this.favoriteProfileService.addFavoriteProfile(data).subscribe({
       next: (res: any) => {
+        this.favoriteProfileService.fetchFavoriteProfiles();
         this.toastService.success(res.message);
         this.getPostList?.emit();
       }
@@ -814,6 +815,7 @@ export class PostCardComponent implements OnInit {
   removeFavorite(dataList: any){
     this.favoriteProfileService.removeFavoriteProfile(this.profileId, dataList.profileid).subscribe({
       next: (res: any) => {
+        this.favoriteProfileService.fetchFavoriteProfiles();
         this.toastService.danger(res.message);
         this.getPostList?.emit();
       }

@@ -113,6 +113,7 @@ export class CarouselComponent implements OnInit {
     }
     this.favoriteProfileService.addFavoriteProfile(data).subscribe({
       next: (res) => {
+        this.favoriteProfileService.fetchFavoriteProfiles();
         this.toasterService.success('Profile successfully added to your favorites');
         this.getPictures(this.pagination);
       }
@@ -122,6 +123,7 @@ export class CarouselComponent implements OnInit {
   removeFavorite(dataList: any){
     this.favoriteProfileService.removeFavoriteProfile(this.profileId, dataList.profileId).subscribe({
       next: (res) => {
+        this.favoriteProfileService.fetchFavoriteProfiles();
         this.toasterService.danger('Profile successfully remove from your favorites');
         this.getPictures(this.pagination);
       }
