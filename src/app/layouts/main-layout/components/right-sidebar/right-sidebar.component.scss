@@ -1,4 +1,7 @@
 :host {
+  .bg-dark{
+    image-rendering: -webkit-optimize-contrast;
+  }
   .right-sidebar.cus-scrollbar {
     position: sticky;
     top: 92px;
