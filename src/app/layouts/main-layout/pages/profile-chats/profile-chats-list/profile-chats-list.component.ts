@@ -949,12 +949,12 @@ export class ProfileChatsListComponent
         userName: this.groupData?.groupName || this.sharedService?.userData?.userName,
         actionType: "VC",
         notificationByProfileId: this.profileId,
-        link: `${this.webUrl}freedom-call/${originUrl}`,
+        link: `${this.webUrl}dating-call/${originUrl}`,
         roomId: this.userChat?.roomId || null,
         groupId: this.userChat?.groupId || null,
         notificationDesc: this.groupData?.groupName ||this.sharedService?.userData?.userName + " incoming call...",
         notificationToProfileId: this.userChat.profileId,
-        domain: "freedom.buzz"
+        domain: "nudegirls.tube"
       };
       // this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
       //   // next: (data: any) => {},
@@ -975,7 +975,7 @@ export class ProfileChatsListComponent
               notificationByProfileId: this.profileId,
               notificationDesc: this.groupData?.groupName || this?.userChat.userName + "incoming call...",
               notificationToProfileId: this.userChat.profileId,
-              domain: "freedom.buzz"
+              domain: "nudegirls.tube"
             };
             // this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
             //   // next: (data: any) => {},
