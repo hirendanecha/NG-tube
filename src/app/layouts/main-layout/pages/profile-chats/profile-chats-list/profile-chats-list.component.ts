@@ -273,6 +273,7 @@ export class ProfileChatsListComponent
       {
         profileId1: this.profileId,
         profileId2: this.userChat?.Id || this.userChat?.profileId,
+        type:'chat'
       },
       (data: any) => {
         // console.log(data);

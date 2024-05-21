@@ -111,16 +111,17 @@ export class ConnectionsComponent implements OnInit {
     // this.router.navigate(['/chats'])
     modalRef.result.then((res) => {
       if (res === 'success') {
-        this.inviteForChat(dataList);
+        this.inviteForChat(dataList,type);
       }
     });
   }
 
-  inviteForChat(invite): void {
+  inviteForChat(invite,type): void {
     this.socketService.createChatRoom(
       {
         profileId1: this.profileId,
         profileId2: invite?.profileId,
+        type:type
       },
       (data: any) => {
         this.toastService.success('Invitation sent successfully');
