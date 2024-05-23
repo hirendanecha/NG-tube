@@ -529,26 +529,26 @@
       <div class="row">
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Match Unvaccinated?</span>
+            <span>Must be Unvaccinated?</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchIsVaccinated) }}</span>
               <fa-icon
               *ngIf="customer.profileId === profileId && customer.matchIsVaccinated !== null"
                 [icon]="['fas', 'pencil']"
                 class="c-pointer"
-                (click)="openModel('Match Unvaccinated?')"
+                (click)="openModel('Must be Unvaccinated?')"
               ></fa-icon>
-              <button *ngIf="customer.profileId === profileId && customer.matchIsVaccinated === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Match Unvaccinated?')">Add</button>
+              <button *ngIf="customer.profileId === profileId && customer.matchIsVaccinated === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Must be Unvaccinated?')">Add</button>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Match Have Children?</span>
+            <span>Can have children?</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchHaveChild) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Match Have Children?')"></fa-icon>
-              <!-- <button *ngIf="customer.profileId === profileId && customer.matchHaveChild === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Match Have Children?')">Add</button> -->
+              <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Can have children?')"></fa-icon>
+              <!-- <button *ngIf="customer.profileId === profileId && customer.matchHaveChild === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Can have children?')">Add</button> -->
             </div>
           </div>
         </div>
@@ -556,21 +556,21 @@
       <div class="row">
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Specific Ethnicity?</span>
+            <span>Preferred Ethinicity</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchEthnicity) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId && customer.matchEthnicity !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Specific Ethnicity?')"></fa-icon>
-              <button *ngIf="customer.profileId === profileId && customer.matchEthnicity === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Specific Ethnicity?')">Add</button>
+              <fa-icon *ngIf="customer.profileId === profileId && customer.matchEthnicity !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Preferred Ethinicity')"></fa-icon>
+              <button *ngIf="customer.profileId === profileId && customer.matchEthnicity === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Preferred Ethinicity')">Add</button>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Want An Educated Match?</span>
+            <span>Preferred Education</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchEducation) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId && customer.matchEducation !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Want An Educated Match?')"></fa-icon>
-              <button *ngIf="customer.profileId === profileId && customer.matchEducation === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Want An Educated Match?')">Add</button>
+              <fa-icon *ngIf="customer.profileId === profileId && customer.matchEducation !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Preferred Education')"></fa-icon>
+              <button *ngIf="customer.profileId === profileId && customer.matchEducation === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Preferred Education')">Add</button>
             </div>
           </div>
         </div>
@@ -578,20 +578,20 @@
       <div class="row">
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Match Body Type?</span>
+            <span>Prefereed body Type</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchBodyType) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId && customer.matchBodyType !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Match Body Type?')"></fa-icon>
-              <button *ngIf="customer.profileId === profileId && customer.matchBodyType === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Match Body Type?')">Add</button>
+              <fa-icon *ngIf="customer.profileId === profileId && customer.matchBodyType !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Prefereed body Type')"></fa-icon>
+              <button *ngIf="customer.profileId === profileId && customer.matchBodyType === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Prefereed body Type')">Add</button>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Can Match Smoke?</span>
+            <span>Can Smoke?</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchIsSmoke) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Can Match Smoke?')"></fa-icon>
+              <fa-icon *ngIf="customer.profileId === profileId" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Can Smoke?')"></fa-icon>
             </div>
           </div>
         </div>
@@ -599,11 +599,11 @@
       <div class="row">
         <div class="col-12 col-md-6 my-3">
           <div class="d-flex justify-content-between input-field p-3 rounded-5">
-            <span>Specific Religion?</span>
+            <span>Preferred Religion</span>
             <div class="d-flex gap-3">
               <span>{{ getStatus(customer.matchReligion) }}</span>
-              <fa-icon *ngIf="customer.profileId === profileId && customer.matchReligion !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Specific Religion?')"></fa-icon>
-              <button *ngIf="customer.profileId === profileId && customer.matchReligion === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Specific Religion?')">Add</button>
+              <fa-icon *ngIf="customer.profileId === profileId && customer.matchReligion !== null" [icon]="['fas', 'pencil']" class="c-pointer" (click)="openModel('Preferred Religion')"></fa-icon>
+              <button *ngIf="customer.profileId === profileId && customer.matchReligion === null" type="button" class="btn cmn-outline-primary rounded-5 py-0" (click)="openModel('Preferred Religion')">Add</button>
             </div>
           </div>
         </div>
