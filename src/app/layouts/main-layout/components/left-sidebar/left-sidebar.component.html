@@ -67,7 +67,7 @@
           <span>Carousel</span>
         </a>
       </li>
-      <li class="ms-1">
+      <li class="ms-1" *ngIf="sharedService?.userData?.isChatRoomCreated">
         <a
           class="d-flex gap-4"
           routerLink="/chats"

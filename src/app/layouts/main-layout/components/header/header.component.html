@@ -137,7 +137,10 @@
         class="right-area d-lg-flex d-none justify-content-end align-items-center gap-6 cus-z p-0"
         *ngIf="tokenService.getToken()"
       >
-        <div class="single-item">
+        <div
+          class="single-item"
+          *ngIf="sharedService?.userData?.isChatRoomCreated"
+        >
           <a
             class="icon-area d-center position-relative ms-7 c-pointer"
             target="_blank"
