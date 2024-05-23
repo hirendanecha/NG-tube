@@ -226,3 +226,9 @@
     <p class="text-start mt-5">{{ profileList[currentIndex]?.idealDate }}</p>
   </div> -->
 </ng-container>
+<ng-container *ngIf="!profileList.length">
+  <app-inline-loader *ngIf="isPageLoader"/>
+  <ng-container *ngIf="!isPageLoader">
+    <span>No Connections</span>
+  </ng-container>
+</ng-container>

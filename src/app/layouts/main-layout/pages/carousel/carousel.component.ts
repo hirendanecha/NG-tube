@@ -27,6 +27,7 @@ export class CarouselComponent implements OnInit {
   imgWidth: number = 0;
   isSlideAnimating: boolean = false;
   dataList: any = [];
+  isPageLoader:boolean= false;
   pagination: any = {
     page: 0,
     limit: 10,

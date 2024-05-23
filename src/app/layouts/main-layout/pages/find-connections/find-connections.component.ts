@@ -21,6 +21,7 @@ export class ConnectionsComponent implements OnInit {
   profileList: any = [];
   currentIndex: number = 0;
   message: string = '';
+  isPageLoader:boolean= false;
   pagination: any = {
     page: 0,
     limit: 10,
