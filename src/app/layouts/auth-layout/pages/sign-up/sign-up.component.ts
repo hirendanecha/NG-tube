@@ -172,7 +172,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
             this.submitted = true;
             this.type = 'success';
             this.registrationMessage =
-              'Please check your email and click the link to activate your account.';
+            `Email sent to ${this.registerForm.value.Email}, Please check your email and click the link to activate your account.`;
             this.scrollTop();
             this.isragister = true;
             const userData = data.data;
