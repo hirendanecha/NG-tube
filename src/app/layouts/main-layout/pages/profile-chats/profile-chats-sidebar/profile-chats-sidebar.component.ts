@@ -23,6 +23,8 @@ import { CreateGroupModalComponent } from 'src/app/@shared/modals/create-group-m
 import * as moment from 'moment';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import { MessageService } from 'src/app/@shared/services/message.service';
+import { ConferenceLinkComponent } from 'src/app/@shared/modals/create-conference-link/conference-link-modal.component';
+import { AppQrModalComponent } from 'src/app/@shared/modals/app-qr-modal/app-qr-modal.component';
 
 @Component({
   selector: 'app-profile-chats-sidebar',
@@ -53,6 +55,7 @@ export class ProfileChatsSidebarComponent
   @Output('onNewChat') onNewChat: EventEmitter<any> = new EventEmitter<any>();
   @Input('isRoomCreated') isRoomCreated: boolean = false;
   @Input('selectedRoomId') selectedRoomId: number = null;
+  userStatus: string;
   constructor(
     private customerService: CustomerService,
     private socketService: SocketService,
@@ -303,4 +306,31 @@ export class ProfileChatsSidebarComponent
   //     });
   //   }
   // }
+  appQrmodal(){
+    const modalRef = this.modalService.open(AppQrModalComponent, {
+      centered: true,
+    });
+  }
+  uniqueLink(){
+    const modalRef = this.modalService.open(ConferenceLinkComponent, {
+      centered: true,
+    });
+  }
+
+  profileStatus(status: string) {
+    const data = {
+      status: status,
+      id: this.profileId,
+    };
+    this.socketService.switchOnlineStatus(data, (res) => {
+      this.sharedService.userData.userStatus = res.status
+    });
+  }
+  findUserStatus(id: string): string {
+    const user = this.sharedService.onlineUserList.find(
+      (ele) => ele.userId === id
+    );
+    const status = user?.status;
+    return status;
+  }
 }

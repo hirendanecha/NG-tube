@@ -29,9 +29,10 @@ import { MessageDatePipe } from 'src/app/@shared/pipe/message-date.pipe';
 import { MediaGalleryComponent } from 'src/app/@shared/components/media-gallery/media-gallery.component';
 import { EmojiPaths } from 'src/app/@shared/constant/emoji';
 import { CustomerService } from 'src/app/@shared/services/customer.service';
-import { environment } from 'src/environments/environment';
 import { SeoService } from 'src/app/@shared/services/seo.service';
 import { ForwardChatModalComponent } from 'src/app/@shared/modals/forward-chat-modal/forward-chat-modal.component';
+import { environment } from 'src/environments/environment';
+import { v4 as uuid } from 'uuid';
 @Component({
   selector: 'app-profile-chats-list',
   templateUrl: './profile-chats-list.component.html',
@@ -90,6 +91,8 @@ export class ProfileChatsListComponent
   originalFavicon: HTMLLinkElement;
   isGallerySidebarOpen: boolean = false;
   currentUser: any = []
+  userStatus: string;
+  isOnline = false;
   // messageList: any = [];
   constructor(
     private socketService: SocketService,
@@ -210,11 +213,17 @@ export class ProfileChatsListComponent
       this.readMessageRoom = 'Y';
     });
     this.socketService.socket?.on('get-users', (data) => {
-      data.map((ele) => {
-        if (!this.sharedService?.onlineUserList.includes(ele.userId)) {
-          this.sharedService.onlineUserList.push(ele.userId);
-        }
+      const index = data.findIndex((ele) => {
+        return ele.userId === this.profileId;
       });
+      if (!this.sharedService.onlineUserList[index]) {
+        data.map((ele) => {
+          this.sharedService.onlineUserList.push({
+            userId: ele.userId,
+            status: ele.status,
+          });
+        });
+      }
     });
     this.socketService.socket?.emit('online-users');
     this.socketService.socket?.on('typing', (data) => {
@@ -250,13 +259,20 @@ export class ProfileChatsListComponent
       this.resetData();
       this.getMessageList();
       this.hasMoreData = false;
-      this.socketService.socket.on('get-users', (data) => {
-        data.map((ele) => {
-          if (!this.sharedService?.onlineUserList.includes(ele.userId)) {
-            this.sharedService.onlineUserList.push(ele.userId);
-          }
+      this.socketService.socket?.on('get-users', (data) => {
+        const index = data.findIndex((ele) => {
+          return ele.userId === this.profileId;
         });
+        if (!this.sharedService.onlineUserList[index]) {
+          data.map((ele) => {
+            this.sharedService.onlineUserList.push({
+              userId: ele.userId,
+              status: ele.status,
+            });
+          });
+        }
       });
+      this.findUserStatus(this.userChat.profileId);
     }
   }
 
@@ -941,47 +957,95 @@ export class ProfileChatsListComponent
     modalRef.componentInstance.sound = callSound;
     modalRef.componentInstance.title = 'RINGING...';
 
-    if (this.sharedService?.onlineUserList.includes(this.userChat?.profileId)) {
-      this.socketService?.startCall(data, (data: any) => {});
-    } else  {
+    this.socketService?.startCall(data, (data: any) => {});
+    // if (this.sharedService?.onlineUserList.includes(this.userChat?.profileId)) {
+    // } else {
+    // }
+    let uuId = uuid();
+    console.log(uuId);
+    localStorage.setItem('uuId', uuId);
+    if (this.userChat?.roomId) {
       const buzzRingData = {
-        profilePicName: this.groupData?.ProfileImage ||this.sharedService?.userData?.profilePicName,
-        userName: this.groupData?.groupName || this.sharedService?.userData?.userName,
-        actionType: "VC",
+        ProfilePicName:
+          this.groupData?.ProfileImage ||
+          this.sharedService?.userData?.ProfilePicName,
+        Username:
+          this.groupData?.groupName || this.sharedService?.userData?.Username,
+        actionType: 'VC',
         notificationByProfileId: this.profileId,
-        link: `${this.webUrl}dating-call/${originUrl}`,
+        link: `${this.webUrl}Buzz-call/${originUrl}`,
         roomId: this.userChat?.roomId || null,
         groupId: this.userChat?.groupId || null,
-        notificationDesc: this.groupData?.groupName ||this.sharedService?.userData?.userName + " incoming call...",
+        notificationDesc:
+          this.groupData?.groupName ||
+          this.sharedService?.userData?.Username + ' incoming call...',
         notificationToProfileId: this.userChat.profileId,
-        domain: "nudegirls.tube"
+        domain: 'goodday.chat',
+        uuId: uuId,
       };
-      // this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
-      //   // next: (data: any) => {},
-      //   error: (err) => {console.log(err)}
-      // });
+      this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
+        // next: (data: any) => {},
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userChat?.groupId) {
+      let groupMembers = this.groupData?.memberList
+        ?.filter((item) => item.profileId !== this.profileId)
+        ?.map((item) => item.profileId);
+      const buzzRingGroupData = {
+        ProfilePicName:
+          this.groupData?.ProfileImage ||
+          this.sharedService?.userData?.ProfilePicName,
+        Username:
+          this.groupData?.groupName || this.sharedService?.userData?.Username,
+        actionType: 'VC',
+        notificationByProfileId: this.profileId,
+        link: `${this.webUrl}Buzz-call/${originUrl}`,
+        roomId: this.userChat?.roomId || null,
+        groupId: this.userChat?.groupId || null,
+        notificationDesc:
+          this.groupData?.groupName ||
+          this.sharedService?.userData?.Username + ' incoming call...',
+        notificationToProfileIds: groupMembers,
+        domain: 'goodday.chat',
+        uuId: uuId,
+      };
+      this.customerService
+        .startGroupCallToBuzzRing(buzzRingGroupData)
+        .subscribe({
+          // next: (data: any) => {},
+          error: (err) => {
+            console.log(err);
+          },
+        });
     }
     modalRef.result.then((res) => {
       if (!window.document.hidden) {
         if (res === 'missCalled') {
           this.chatObj.msgText = 'You have a missed call';
           this.sendMessage();
+          const uuId = localStorage.getItem('uuId');
 
-          if (!this.sharedService?.onlineUserList.includes(this.userChat?.profileId)) {
-            const buzzRingData = {
-              profilePicName: this.groupData?.ProfileImage || this.userChat?.profilePicName,
-              userName: this.groupData?.groupName || this?.userChat.userName,
-              actionType: "DC",
-              notificationByProfileId: this.profileId,
-              notificationDesc: this.groupData?.groupName || this?.userChat.userName + "incoming call...",
-              notificationToProfileId: this.userChat.profileId,
-              domain: "nudegirls.tube"
-            };
-            // this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
-            //   // next: (data: any) => {},
-            //   error: (err) => {console.log(err)}
-            // });
-          }
+          const buzzRingData = {
+            ProfilePicName:
+              this.groupData?.ProfileImage || this.userChat?.ProfilePicName,
+            Username: this.groupData?.groupName || this?.userChat.Username,
+            actionType: 'DC',
+            notificationByProfileId: this.profileId,
+            notificationDesc:
+              this.groupData?.groupName ||
+              this?.userChat.Username + 'incoming call...',
+            notificationToProfileId: this.userChat.profileId,
+            domain: 'goodday.chat',
+            uuId: uuId,
+          };
+          this.customerService.startCallToBuzzRing(buzzRingData).subscribe({
+            // next: (data: any) => {},
+            error: (err) => {
+              console.log(err);
+            },
+          });
         }
       }
     });
@@ -1126,5 +1190,12 @@ export class ProfileChatsListComponent
       // panelClass: 'w-400-px',
     });
     offcanvasRef.componentInstance.userChat = this.userChat;
+  }
+  
+  findUserStatus(id) {
+    const index = this.sharedService.onlineUserList.findIndex(
+      (ele) => ele.userId === id
+    );
+    this.isOnline = this.sharedService.onlineUserList[index] ? true : false;
   }
 }

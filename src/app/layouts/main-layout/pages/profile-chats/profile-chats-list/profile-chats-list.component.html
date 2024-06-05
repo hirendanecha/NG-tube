@@ -71,9 +71,7 @@
               </h5>
               <ng-container *ngIf="userChat.roomId">
                 <span class="mdtxt">{{
-                  sharedService?.onlineUserList.includes(userChat?.profileId)
-                    ? "online"
-                    : ""
+                 isOnline ? "online" : ""
                 }}</span>
               </ng-container>
               <ng-container *ngIf="userChat.groupId">
