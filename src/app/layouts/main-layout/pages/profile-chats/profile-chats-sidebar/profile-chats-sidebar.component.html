@@ -211,7 +211,7 @@
         </button>
       </div> -->
     </div>
-    <div class="header-menu cus-scrollbar overflow-auto position-relative">
+    <div class="header-menu cus-scrollbar-pending overflow-auto justify-content-between d-flex flex-column">
       <ng-container>
         <app-inline-loader class="position-absolute" *ngIf="isChatLoader" />
       </ng-container>
@@ -504,6 +504,11 @@
       <ng-template #noPendingRequest>
         <h5 class="text-center">No Pending Invites</h5>
       </ng-template>
+      <div *ngIf="backCanvas">
+        <button class="btn btn-primary float-end me-3 btn-sm" (click)="dismissSidebar()">
+          <fa-icon [icon]="['fas', 'chevron-left']" />Back
+        </button>
+      </div>
     </div>
   </aside>
 </div>
