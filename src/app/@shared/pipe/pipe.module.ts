@@ -6,6 +6,8 @@ import { CommaSeperatePipe } from './comma-seperate.pipe';
 import { DateDayPipe } from '../services/date-day.pipe';
 import { NoSanitizePipe } from './sanitize.pipe';
 import { MessageTimePipe } from './message-time.pipe';
+import { HighlightPipe } from './hightlight-text.pipe';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { MessageTimePipe } from './message-time.pipe';
     DateDayPipe,
     NoSanitizePipe,
     MessageTimePipe,
+    HighlightPipe,
+    SearchFilterPipe
   ],
   imports: [CommonModule],
   exports: [
@@ -24,6 +28,8 @@ import { MessageTimePipe } from './message-time.pipe';
     DateDayPipe,
     NoSanitizePipe,
     MessageTimePipe,
+    HighlightPipe,
+    SearchFilterPipe
   ],
 })
 export class PipeModule {}

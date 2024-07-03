@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  NgZone,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -13,6 +14,10 @@ import { ConfirmationModalComponent } from 'src/app/@shared/modals/confirmation-
 import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 import { take } from 'rxjs';
 import * as moment from 'moment';
+import { AppQrModalComponent } from 'src/app/@shared/modals/app-qr-modal/app-qr-modal.component';
+// import { ConferenceLinkComponent } from 'src/app/@shared/modals/create-conference-link/conference-link-modal.component';
+import { Router } from '@angular/router';
+import { ConferenceLinkComponent } from 'src/app/@shared/modals/create-conference-link/conference-link-modal.component';
 
 @Component({
   selector: 'app-profile-chat-list',
@@ -40,6 +45,11 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
   };
   oldChat: any = {};
 
+  isMessageSoundEnabled: boolean = true;
+  isCallSoundEnabled: boolean = true;
+  isInnerWidthSmall: boolean;
+  isSidebarOpen: boolean = false;
+
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
@@ -47,7 +57,9 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private socketService: SocketService,
     private modalService: NgbModal,
-    public breakpointService: BreakpointService
+    public breakpointService: BreakpointService,
+    private ngZone:NgZone,
+    private router: Router,
   ) {
     this.profileId = +localStorage.getItem('profileId');
     if (this.sharedService.isNotify) {
@@ -56,7 +68,7 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.socketService.connect();
-
+    
     const isMobilePopUp = localStorage.getItem('isMobilePopShow');
     if (isMobilePopUp !== 'N') {
       this.breakpointService.screen.pipe(take(1)).subscribe((screen) => {
@@ -65,6 +77,14 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
         }
       });
     }
+   
+    this.isInnerWidthSmall = window.innerWidth < 576;
+    if (this.isInnerWidthSmall && !this.isSidebarOpen && this.router.url === '/profile-chats') {
+      this.openChatListSidebar();
+    }
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('resize', this.onResize.bind(this));
+    });
   }
 
   mobileMenu(): void {
@@ -103,13 +123,26 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
     this.selectedRoomId = id;
   }
 
+  onResize() {
+    this.ngZone.run(() => {
+      this.isInnerWidthSmall = window.innerWidth < 576;
+      // if (this.isInnerWidthSmall && !this.isSidebarOpen && this.router.url === '/profile-chats') {
+      //   this.openChatListSidebar();
+      // }
+    });
+  }
+
   openChatListSidebar() {
+    this.isSidebarOpen = true;
     const offcanvasRef = this.offcanvasService.open(
       ProfileChatsSidebarComponent,
       this.userChat
     );
     offcanvasRef.componentInstance.onNewChat.subscribe((emittedData: any) => {
       this.onChatPost(emittedData);
+    });
+    offcanvasRef.result.then((result) => {}).catch((reason) => {
+        this.isSidebarOpen = false;
     });
   }
 
@@ -121,8 +154,9 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.confirmButtonLabel = 'Yes';
     modalRef.componentInstance.cancelButtonLabel = 'No';
     modalRef.componentInstance.message =
-      'Would you like to add a Nudegirls.tube icon to your mobile Home screen?';
+      'Would you like to add a nudegirls.tube icon to your mobile Home screen?';
     modalRef.result.then((res) => {
+      localStorage.setItem('isMobilePopShow', 'N');
       if (res === 'success') {
         const modalRef = this.modalService.open(ConfirmationModalComponent, {
           centered: true,
@@ -134,15 +168,34 @@ export class ProfileChartsComponent implements OnInit, OnDestroy {
           'On your browser click on browser menu, then click Add to Home Screen';
         modalRef.result.then((res) => {
           if (res === 'success') {
-            localStorage.setItem('isMobilePopShow', 'N');
+            // localStorage.setItem('isMobilePopShow', 'N');
           }
         });
       }
     });
   }
 
+  toggleSoundPreference(property: string, ngModelValue: boolean): void {
+    const soundPreferences =
+      JSON.parse(localStorage.getItem('soundPreferences')) || {};
+    soundPreferences[property] = ngModelValue ? 'Y' : 'N';
+    localStorage.setItem('soundPreferences', JSON.stringify(soundPreferences));
+  }
+
+  appQrmodal(){
+    const modalRef = this.modalService.open(AppQrModalComponent, {
+      centered: true,
+    });
+  }
+  uniqueLink(){
+    const modalRef = this.modalService.open(ConferenceLinkComponent ,{
+      centered: true,
+    });
+  }
+
   ngOnDestroy(): void {
     this.isRoomCreated = false;
+    window.removeEventListener('resize', this.onResize.bind(this));
     // if (this.socketService?.socket) {
     //   this.socketService.socket?.disconnect();
     // }

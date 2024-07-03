@@ -66,7 +66,7 @@
     max-width: 40px;
   }
   .cus-scrollbar {
-    height: 44vh;
+    height: 48vh;
     // height: 39vh;
     @media (max-width: 992px) {
       height: 42vh;
@@ -90,7 +90,6 @@
       width: 12px;
       height: 12px;
       // background: var(--highlight-color);
-      background: #00a469;
       border-radius: 50%;
     }
     .abs-activity {
