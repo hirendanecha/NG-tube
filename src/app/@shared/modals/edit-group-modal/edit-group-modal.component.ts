@@ -151,7 +151,7 @@ export class EditGroupModalComponent implements OnInit {
       groupName: this.changeGroupName,
       profileIds: groupMembers,
       groupId: this.groupId,
-      isUpdate: true,
+      isUpdate: this.addedInvitesList.length ? true : false,
     };
     this.activateModal.close(groupData);
   }

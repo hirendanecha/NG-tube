@@ -113,7 +113,7 @@ export class IncomingcallModalComponent
           state: { chatDataPass },
         });
       } else {
-        const callId = this.calldata.link.replace('https://facetime.tube/', '');
+        const callId = this.calldata.link.replace('https://meet.facetime.tube/', '');
         this.router.navigate([`/dating-call/${callId}`], {
           state: { chatDataPass },
         });
