@@ -112,13 +112,17 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     this.userList = [];
     if (this.isAllowTagUser) {
       let htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
-      htmlText = htmlText.replace(/<[^>]*>/g, '');
+      htmlText = htmlText.replace(/<[^>]*>/g, ' ');
 
       const atSymbolIndex = htmlText.lastIndexOf('@');
       const validUserName = /^[A-Za-z0-9_]+$/.test('');
       if (atSymbolIndex !== -1) {
         this.userNameSearch = htmlText.substring(atSymbolIndex + 1);
-        if (this.isCustomeSearch && this.userNameSearch.length > 0 && !validUserName) {
+        if (
+          this.isCustomeSearch &&
+          this.userNameSearch.length > 0 &&
+          !validUserName
+        ) {
           this.getUserList(this.userNameSearch);
         } else {
           if (this.userNameSearch.length > 2 && !validUserName) {
@@ -220,10 +224,11 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     const htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
     const text = htmlText.replace(
       `@${this.userNameSearch}`,
-      `<a href="/settings/view-profile/${user?.Id
-      }" class="text-danger" data-id="${user?.Id}">@${user?.userName.split(
-        ' '
-      ).join('')}</a>`
+      `<a href="/settings/view-profile/${
+        user?.Id
+      }" class="text-danger" data-id="${user?.Id}">@${user?.userName
+        .split(' ')
+        .join('')}</a>`
     );
     this.setTagInputDivValue(text);
     this.emitChangeEvent();

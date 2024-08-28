@@ -57,7 +57,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     private postService: PostService,
     public sharedService: SharedService,
     private toastService: ToastService,
-    private uploadService: UploadFilesService,
+    private uploadService: UploadFilesService
   ) {
     this.userlocalId = +localStorage.getItem('user_id');
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -75,10 +75,14 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       this.router.navigate([`/login`]);
     }
     this.modalService.dismissAll();
-    const notificationSound = localStorage.getItem('notificationSoundEnabled');
-    if (notificationSound === 'N') {
-      this.isNotificationSoundEnabled = false;
-    }
+    // const notificationSound = localStorage.getItem('notificationSoundEnabled');
+    // if (notificationSound === 'N') {
+    //   this.isNotificationSoundEnabled = false;
+    // }
+    this.sharedService.loginUserInfo.subscribe((user) => {
+      this.isNotificationSoundEnabled =
+        user?.tagNotificationSound === 'Y' ? true : false;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -171,7 +175,8 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       modalRef.componentInstance.title = 'Update Profile';
       modalRef.componentInstance.confirmButtonLabel = 'Update';
       modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-      modalRef.componentInstance.message = 'Are you sure want to update profile details?';
+      modalRef.componentInstance.message =
+        'Are you sure want to update profile details?';
 
       modalRef.result.then((res) => {
         if (res === 'success') {
@@ -179,7 +184,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         }
       });
     }
-
   }
 
   uploadImgAndUpdateCustomer(): void {
@@ -205,13 +209,15 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
           if (res?.profileImg?.body?.url) {
             this.profileImg['file'] = null;
             this.profileImg['url'] = res?.profileImg?.body?.url;
-            this.sharedService['userData']['profilePicName'] = this.profileImg['url'];
+            this.sharedService['userData']['profilePicName'] =
+              this.profileImg['url'];
           }
 
           if (res?.profileCoverImg?.body?.url) {
             this.profileCoverImg['file'] = null;
             this.profileCoverImg['url'] = res?.profileCoverImg?.body?.url;
-            this.sharedService['userData']['CoverPicName'] = this.profileCoverImg['url'];
+            this.sharedService['userData']['CoverPicName'] =
+              this.profileCoverImg['url'];
           }
 
           this.updateCustomer();
@@ -268,7 +274,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
         if (res.data) {
           this.customer = res.data;
-          console.log('customer  : ', this.customer)
+          console.log('customer  : ', this.customer);
           this.getAllCountries();
         }
       },
@@ -324,15 +330,31 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   notificationSound(): void {
-    const soundOct = localStorage.getItem('notificationSoundEnabled');
-    if (soundOct === 'Y') {
-      localStorage.setItem('notificationSoundEnabled', 'N');
-    }  else {
-      localStorage.setItem(
-        'notificationSoundEnabled',
-        this.isNotificationSoundEnabled ? 'Y' : 'N'
-      );
-    }
+    // const soundOct = localStorage.getItem('notificationSoundEnabled');
+    // if (soundOct === 'Y') {
+    //   localStorage.setItem('notificationSoundEnabled', 'N');
+    // } else {
+    //   localStorage.setItem(
+    //     'notificationSoundEnabled',
+    //     this.isNotificationSoundEnabled ? 'Y' : 'N'
+    //   );
+    // }
+
+    this.isNotificationSoundEnabled != this.isNotificationSoundEnabled;
+    const soundObj = {
+      property: 'tagNotificationSound',
+      value: this.isNotificationSoundEnabled ? 'Y' : 'N',
+    };
+    this.customerService.updateNotificationSound(soundObj).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toastService.success(res.message);
+        this.sharedService.getUserDetails();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   convertToUppercase(event: any) {
